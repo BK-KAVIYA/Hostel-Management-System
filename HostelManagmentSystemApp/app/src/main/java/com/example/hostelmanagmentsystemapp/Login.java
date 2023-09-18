@@ -1,0 +1,178 @@
+package com.example.hostelmanagmentsystemapp;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
+import android.util.Patterns;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.material.textfield.TextInputLayout;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Login extends AppCompatActivity {
+
+    Button callSingup,login_btn;
+    ImageView image;
+    TextView logoText,sloganText;
+    ProgressBar progressBar;
+    TextInputLayout email,password;
+
+    Connection connection;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
+
+        //Hooks
+        callSingup= findViewById(R.id.singup_screen);
+        image= findViewById(R.id.LogiImage);
+        logoText= findViewById(R.id.logo_name);
+        sloganText= findViewById(R.id.slogo_name);
+        login_btn= findViewById(R.id.login_btn);
+        email=findViewById(R.id.username);
+        password=findViewById(R.id.password);
+        progressBar=findViewById(R.id.progress_bar);
+
+        callSingup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Login.this,SignUp.class);
+
+                Pair[] pairs=new Pair[7];
+
+                pairs[0]=new Pair<View,String>(image,"logo_image");
+                pairs[1]=new Pair<View,String>(logoText,"logo_text");
+                pairs[2]=new Pair<View,String>(sloganText,"logo_desc");
+                pairs[3]=new Pair<View,String>(email,"user_tran");
+                pairs[4]=new Pair<View,String>(password,"password_tran");
+                pairs[5]=new Pair<View,String>(login_btn,"login_tran");
+                pairs[6]=new Pair<View,String>(callSingup,"button_tran");
+
+                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+                startActivity(intent,options.toBundle());
+
+            }
+        });
+
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Email=email.getEditText().getText().toString();
+                String Password=password.getEditText().getText().toString();
+
+                boolean isValidated=validateData(Email,Password);
+                if (!isValidated){
+                    return;
+                }else {
+
+                    loginAccountInFirebase(Email,Password);
+                }
+            }
+
+
+        });
+
+    }
+    void loginAccountInFirebase(String email,String upassword){
+
+        try {
+
+            if (connection != null) {
+
+
+
+                String query = "SELECT * FROM [slcrms].[dbo].[user] WHERE email = ? AND password = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, email);
+                statement.setString(2, upassword);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    UserSingleton.getInstance().setUserEmail(email);
+                    startActivity(new Intent(Login.this,Dashboard.class));
+                    finish();
+
+                    // Do something with the retrieved data
+                }else{
+                    Context context = getApplicationContext();
+                    Toast.makeText(context, "password or email incorrect!", Toast.LENGTH_SHORT).show();
+                }
+
+                resultSet.close();
+                statement.close();
+                connection.close();
+            }else{
+                Context context = getApplicationContext();
+                Toast.makeText(context, "check your connection!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+//        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+//        changeInProgress(true);
+//        firebaseAuth.signInWithEmailAndPassword(email,upassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                changeInProgress(false);
+//                if(task.isSuccessful()){
+//                    //task successfull
+//                    if (firebaseAuth.getCurrentUser().isEmailVerified()){
+//                        //go to main activity
+//                        startActivity(new Intent(Login.this,Dashboard.class));
+//                        finish();
+//                    }else{
+//                        Utility.showToast(Login.this,"Email not verified, Please verify your Email");
+//                    }
+//                }else{
+//                    //task failure
+//                    Utility.showToast(Login.this,task.getException().getLocalizedMessage());
+//                }
+//            }
+//        });
+    }
+
+    void changeInProgress(boolean inProgress){
+        if (inProgress){
+            progressBar.setVisibility(View.VISIBLE);
+            login_btn.setVisibility(View.GONE);
+        }else {
+            progressBar.setVisibility(View.GONE);
+            login_btn.setVisibility(View.VISIBLE);
+        }
+    }
+    boolean validateData(String testEmail,String TPassword){
+        //validate user enter data
+        if(!Patterns.EMAIL_ADDRESS.matcher(testEmail).matches()){
+            email.setError("Email is Invalid");
+            return false;
+        }
+        if (TPassword.length()<6){
+            email.setError("");
+            password.setError("Password Length Invaild");
+            return false;
+        }
+        return true;
+
+    }
+
+}
