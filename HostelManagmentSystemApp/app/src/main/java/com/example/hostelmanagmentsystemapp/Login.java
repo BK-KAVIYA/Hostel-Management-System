@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }else {
 
-                    loginAccountInFirebase(Email,Password);
+                    loginAccount(Email,Password);
                 }
             }
 
@@ -90,42 +90,42 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    void loginAccountInFirebase(String email,String upassword){
+    void loginAccount(String email,String upassword){
 
-        try {
-
-            if (connection != null) {
-
-
-
-                String query = "SELECT * FROM [slcrms].[dbo].[user] WHERE email = ? AND password = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, email);
-                statement.setString(2, upassword);
-
-                ResultSet resultSet = statement.executeQuery();
-
-                if (resultSet.next()) {
-                    UserSingleton.getInstance().setUserEmail(email);
-                    startActivity(new Intent(Login.this,Dashboard.class));
-                    finish();
-
-                    // Do something with the retrieved data
-                }else{
-                    Context context = getApplicationContext();
-                    Toast.makeText(context, "password or email incorrect!", Toast.LENGTH_SHORT).show();
-                }
-
-                resultSet.close();
-                statement.close();
-                connection.close();
-            }else{
-                Context context = getApplicationContext();
-                Toast.makeText(context, "check your connection!", Toast.LENGTH_SHORT).show();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//
+//            if (connection != null) {
+//
+//
+//
+//                String query = "SELECT * FROM [slcrms].[dbo].[user] WHERE email = ? AND password = ?";
+//                PreparedStatement statement = connection.prepareStatement(query);
+//                statement.setString(1, email);
+//                statement.setString(2, upassword);
+//
+//                ResultSet resultSet = statement.executeQuery();
+//
+//                if (resultSet.next()) {
+//                    UserSingleton.getInstance().setUserEmail(email);
+//                    startActivity(new Intent(Login.this,Dashboard.class));
+//                    finish();
+//
+//                    // Do something with the retrieved data
+//                }else{
+//                    Context context = getApplicationContext();
+//                    Toast.makeText(context, "password or email incorrect!", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                resultSet.close();
+//                statement.close();
+//                connection.close();
+//            }else{
+//                Context context = getApplicationContext();
+//                Toast.makeText(context, "check your connection!", Toast.LENGTH_SHORT).show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
 
 //        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
