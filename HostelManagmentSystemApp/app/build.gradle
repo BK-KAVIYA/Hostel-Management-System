@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
 }
-
+task wrapper(type: Wrapper){
+    gradleVersion = '7.2'
+}
 android {
     namespace 'com.example.hostelmanagmentsystemapp'
     compileSdk 33
