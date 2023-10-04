@@ -30,4 +30,9 @@ public class StudentController {
         return ResponseEntity.ok((List<Student>) studentList);
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String getName() {
+        return "<h1>Welcome</h1>";
+    }
 }
