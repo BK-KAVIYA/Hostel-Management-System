@@ -7,6 +7,8 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
@@ -17,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.hostelmanagmentsystemapp.entity.User;
+import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitClient;
+import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitService;
+import com.example.hostelmanagmentsystemapp.reotrfit.UserApi;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -24,6 +31,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Login extends AppCompatActivity {
 
@@ -81,7 +95,7 @@ public class Login extends AppCompatActivity {
                 if (!isValidated){
                     return;
                 }else {
-
+                    changeInProgress(true);
                     loginAccount(Email,Password);
                 }
             }
@@ -90,65 +104,52 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    void loginAccount(String email,String upassword){
-
-//        try {
-//
-//            if (connection != null) {
-//
-//
-//
-//                String query = "SELECT * FROM [slcrms].[dbo].[user] WHERE email = ? AND password = ?";
-//                PreparedStatement statement = connection.prepareStatement(query);
-//                statement.setString(1, email);
-//                statement.setString(2, upassword);
-//
-//                ResultSet resultSet = statement.executeQuery();
-//
-//                if (resultSet.next()) {
-//                    UserSingleton.getInstance().setUserEmail(email);
-//                    startActivity(new Intent(Login.this,Dashboard.class));
-//                    finish();
-//
-//                    // Do something with the retrieved data
-//                }else{
-//                    Context context = getApplicationContext();
-//                    Toast.makeText(context, "password or email incorrect!", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                resultSet.close();
-//                statement.close();
-//                connection.close();
-//            }else{
-//                Context context = getApplicationContext();
-//                Toast.makeText(context, "check your connection!", Toast.LENGTH_SHORT).show();
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
 
 
-//        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-//        changeInProgress(true);
-//        firebaseAuth.signInWithEmailAndPassword(email,upassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                changeInProgress(false);
-//                if(task.isSuccessful()){
-//                    //task successfull
-//                    if (firebaseAuth.getCurrentUser().isEmailVerified()){
-//                        //go to main activity
-//                        startActivity(new Intent(Login.this,Dashboard.class));
-//                        finish();
-//                    }else{
-//                        Utility.showToast(Login.this,"Email not verified, Please verify your Email");
-//                    }
-//                }else{
-//                    //task failure
-//                    Utility.showToast(Login.this,task.getException().getLocalizedMessage());
-//                }
-//            }
-//        });
+void loginAccount(String uname, String upassword) {
+
+    String username = uname;
+    String password = upassword;
+
+    // Combine the username and password in the format "username:password"
+    String credentials = username + ":" + password;
+
+    // Encode the credentials in Base64
+    String base64Credentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+    // Create a Retrofit instance with the Base64-encoded credentials
+    Retrofit retrofit = RetrofitClient.getClient(base64Credentials);
+    UserApi apiService = retrofit.create(UserApi.class);
+
+
+    apiService.authentication().enqueue(new Callback<String>() {
+        @Override
+        public void onResponse(Call<String> call, Response<String> response) {
+            if (response.isSuccessful()) {
+                // Handle a successful response
+                changeInProgress(false);
+                String responseBody = response.body(); // Get the plain text response
+                System.out.println(responseBody);
+                startActivity(new Intent(Login.this,Dashboard.class).putExtra("data",responseBody));
+//                startActivity(new Intent(Login.this,Dashboard.class));
+//                finish();
+            } else {
+                changeInProgress(false);
+                Context context = getApplicationContext();
+                Toast.makeText(context, "password or email incorrect!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<String> call, Throwable t) {
+            changeInProgress(false);
+            Toast.makeText(Login.this, "Authentication failed due to a network error!", Toast.LENGTH_SHORT).show();
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Error occurred", t);
+        }
+    });
+
+
+
     }
 
     void changeInProgress(boolean inProgress){
@@ -162,15 +163,15 @@ public class Login extends AppCompatActivity {
     }
     boolean validateData(String testEmail,String TPassword){
         //validate user enter data
-        if(!Patterns.EMAIL_ADDRESS.matcher(testEmail).matches()){
-            email.setError("Email is Invalid");
-            return false;
-        }
-        if (TPassword.length()<6){
-            email.setError("");
-            password.setError("Password Length Invaild");
-            return false;
-        }
+//        if(!Patterns.EMAIL_ADDRESS.matcher(testEmail).matches()){
+//            email.setError("Email is Invalid");
+//            return false;
+//        }
+//        if (TPassword.length()<6){
+//            email.setError("");
+//            password.setError("Password Length Invaild");
+//            return false;
+//        }
         return true;
 
     }
