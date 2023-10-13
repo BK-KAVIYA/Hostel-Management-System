@@ -17,22 +17,22 @@ public class StudentController {
     @Autowired
     private StudentServiceImp studentServiceImp;
 
-    @PostMapping("/Save")
+    @PostMapping("/register")
     public ResponseEntity<String> saveStudent(Student student) {
-        studentServiceImp.saveCustomer(student);
+        studentServiceImp.registerStudent(student);
         return ResponseEntity.ok("Student saved successfully");
     }
 
-    @GetMapping("/view")
+    @GetMapping("/viewallstudent")
     @ResponseBody
     public ResponseEntity<List<Student>> listStudent() {
-        Iterable<Student> studentList = studentServiceImp.getAllCustomer();
+        Iterable<Student> studentList = studentServiceImp.getAllStudent();
         return ResponseEntity.ok((List<Student>) studentList);
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String getName() {
-        return "<h1>Welcome</h1>";
+    @GetMapping("/students/{registrationNumber}")
+    public ResponseEntity<Student> getStudentDetails(@PathVariable String registrationNumber) {
+        Student student = studentServiceImp.getStudentDetails(registrationNumber);
+        return ResponseEntity.ok(student);
     }
 }

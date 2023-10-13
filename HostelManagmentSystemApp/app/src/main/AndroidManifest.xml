@@ -19,7 +19,7 @@
             android:name=".MessageFragment"
             android:exported="false" />
         <activity
-            android:name=".NotificationFragment"
+            android:name=".NewsFragment"
             android:exported="false" />
         <activity
             android:name=".SettingFragment"

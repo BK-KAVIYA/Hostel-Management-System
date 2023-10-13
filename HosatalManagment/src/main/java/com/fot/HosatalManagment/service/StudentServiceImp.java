@@ -13,27 +13,23 @@ public class StudentServiceImp implements StudentService{
     @Autowired
     private StudentRepo studentRepo;
 
-    public StudentServiceImp(StudentRepo studentRepo) {
-        this.studentRepo = studentRepo;
+    @Override
+    public Iterable<Student> getAllStudent() {
+        return  studentRepo.findAll();
     }
 
     @Override
-    public Iterable<Student> getAllCustomer() {
-        return (List<Student>) studentRepo.findAll();
+    public Student registerStudent(Student student) {
+       return studentRepo.save(student);
     }
 
     @Override
-    public Student saveCustomer(Student student) {
-        return studentRepo.save(student);
+    public Student getStudentDetails(String registrationNumber) {
+        return studentRepo.getStudentDetails(registrationNumber);
     }
 
     @Override
-    public Student getCustomerById(int id) {
-        return null;
-    }
-
-    @Override
-    public Student updateCustomer(Student student) {
+    public Student updateStudent(Student student) {
         return null;
     }
 
@@ -43,12 +39,7 @@ public class StudentServiceImp implements StudentService{
     }
 
     @Override
-    public int getTotalCustomer() {
+    public int getTotalStudent() {
         return 0;
-    }
-
-    @Override
-    public String findByStudentEmail(String email) {
-        return null;
     }
 }

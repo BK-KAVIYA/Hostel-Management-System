@@ -3,25 +3,21 @@ package com.example.hostelmanagmentsystemapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class Dashboard extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment=new HomeFragment();
     SettingFragment settingFragment=new SettingFragment();
-    NotificationFragment notificationFragment=new NotificationFragment();
+    NewsFragment newsFragment =new NewsFragment();
     MessageFragment messageFragment=new MessageFragment();
     ImageView LogoutButton,Avatar;
 
@@ -94,11 +90,8 @@ public class Dashboard extends AppCompatActivity {
                     case R.id.home:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                         return true;
-                    case R.id.notification:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,notificationFragment).commit();
-                        return true;
-                    case R.id.message:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,messageFragment).commit();
+                    case R.id.news:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, newsFragment).commit();
                         return true;
                     case R.id.setting:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,settingFragment).commit();

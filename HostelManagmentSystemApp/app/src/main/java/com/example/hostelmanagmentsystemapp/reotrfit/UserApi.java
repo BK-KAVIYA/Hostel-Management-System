@@ -2,6 +2,7 @@ package com.example.hostelmanagmentsystemapp.reotrfit;
 
 import android.util.Base64;
 
+import com.example.hostelmanagmentsystemapp.entity.Student;
 import com.example.hostelmanagmentsystemapp.entity.User;
 
 import retrofit2.Call;
@@ -14,4 +15,7 @@ public interface UserApi {
 
     @GET("/user")
     Call<String> authentication();
+
+    @POST("/register")
+    Call<Student> save(@Body Student student);
 }
