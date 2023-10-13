@@ -30,7 +30,7 @@ public class StudentController {
         return ResponseEntity.ok((List<Student>) studentList);
     }
 
-    @GetMapping("/students/{registrationNumber}")
+    @GetMapping("/findstudents/{registrationNumber}")
     public ResponseEntity<Student> getStudentDetails(@PathVariable String registrationNumber) {
         Student student = studentServiceImp.getStudentDetails(registrationNumber);
         return ResponseEntity.ok(student);

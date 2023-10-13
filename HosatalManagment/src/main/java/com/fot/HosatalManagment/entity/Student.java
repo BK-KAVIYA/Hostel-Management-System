@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Student {
     @Id
+    @Column(name="st_id")
     private String stId;
 
     private String name;
@@ -125,5 +126,22 @@ public class Student {
 
     public void setRoom_id(int room_id) {
         this.room_id = room_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "stId='" + stId + '\'' +
+                ", name='" + name + '\'' +
+                ", address_line1='" + address_line1 + '\'' +
+                ", address_line2='" + address_line2 + '\'' +
+                ", city='" + city + '\'' +
+                ", nic='" + nic + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", mobile_no=" + mobile_no +
+                ", level=" + level +
+                ", room_id=" + room_id +
+                '}';
     }
 }

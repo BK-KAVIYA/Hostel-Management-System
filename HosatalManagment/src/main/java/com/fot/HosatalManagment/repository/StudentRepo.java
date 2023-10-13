@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepo extends CrudRepository<Student,Integer> {
+public interface StudentRepo extends CrudRepository<Student,String> {
     @Procedure(name = "GetStudentDetails")
     Student getStudentDetails(String registrationNumber);
 }

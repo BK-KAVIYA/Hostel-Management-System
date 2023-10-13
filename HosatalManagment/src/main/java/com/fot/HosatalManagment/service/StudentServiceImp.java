@@ -4,6 +4,7 @@ import com.fot.HosatalManagment.entity.Student;
 import com.fot.HosatalManagment.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class StudentServiceImp implements StudentService{
     }
 
     @Override
+    @Transactional
     public Student getStudentDetails(String registrationNumber) {
         return studentRepo.getStudentDetails(registrationNumber);
     }

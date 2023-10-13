@@ -56,11 +56,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> {
                     auth.requestMatchers("/").permitAll();
-                    auth.requestMatchers("/viewallstudent").permitAll();
-                    auth.requestMatchers("/register").permitAll();
-                    auth.requestMatchers("/students/{registrationNumber}").hasAuthority("USER");
+                    auth.requestMatchers("/student/viewallstudent").permitAll();
+                    auth.requestMatchers("/student/register").permitAll();
+                    auth.requestMatchers("/student/findstudent/{registrationNumber}").hasAuthority("USER");
                     auth.requestMatchers("/user").hasAuthority("USER");
-                    auth.requestMatchers("/register").hasAuthority("USER");
+                    auth.requestMatchers("/register").hasAuthority("STUDENT");
                     auth.requestMatchers("/admin").hasAuthority("ADMIN");
                 })
                 .httpBasic(withDefaults())
