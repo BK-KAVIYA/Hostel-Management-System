@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/dynamic_rv_bg"
+    android:padding="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+
+    <ImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="6dp"
+        android:src="@drawable/chair"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:text="Asset ID"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/image_section"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/topboyd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/complain_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_toEndOf="@id/imageViewIcon"
+            android:text="Date"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp" />
+        <TextView
+            android:id="@+id/complain_datee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_toEndOf="@id/imageViewIcon"
+            android:text="2023-10-14 15:30:00"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="3dp" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/complain_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_toEndOf="@id/imageViewIcon"
+            android:text="Complaint"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp" />
+        <TextView
+            android:id="@+id/complain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_toEndOf="@id/imageViewIcon"
+            android:text="Fan is not working"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="3dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        android:text="Open"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:layout_below="@id/image_section"
+        android:textAlignment="textEnd"/>
+
+</RelativeLayout>

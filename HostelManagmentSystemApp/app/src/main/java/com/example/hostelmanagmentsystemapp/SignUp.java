@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.hostelmanagmentsystemapp.entity.Student;
 import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitService;
-import com.example.hostelmanagmentsystemapp.reotrfit.UserApi;
+import com.example.hostelmanagmentsystemapp.reotrfit.StudentAPI;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.logging.Level;
@@ -42,7 +41,7 @@ public class SignUp extends AppCompatActivity {
     Spinner genderSpinner,levelSpinner;
     ProgressBar progressBar;
 
-    UserApi userApi;
+    StudentAPI studentAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,7 @@ public class SignUp extends AppCompatActivity {
         getSupportActionBar().hide();
 
         RetrofitService retrofitService = new RetrofitService();
-        userApi = retrofitService.getRetrofit().create(UserApi.class);
+        studentAPI = retrofitService.getRetrofit().create(StudentAPI.class);
 
         genderSpinner = findViewById(R.id.gender_spinner);
         ArrayAdapter<CharSequence> genderadapter = ArrayAdapter.createFromResource(this, R.array.genders_array, android.R.layout.simple_spinner_item);
@@ -147,25 +146,25 @@ public class SignUp extends AppCompatActivity {
             String addressL1=address1.getEditText().getText().toString();
             String addressL2=address2.getEditText().getText().toString();
             String city=userName.getEditText().getText().toString();
-            int phoneNumber=Integer.parseInt(phonenNumber.getEditText().getText().toString());
+            Long phoneNumber= Long.valueOf(Integer.parseInt(phonenNumber.getEditText().getText().toString()));
             String IDNumber=idNumber.getEditText().getText().toString();
             String cPwd=cPassword.getEditText().getText().toString();
 
             Student student=new Student();
-            student.setRegNo(regno);
+            student.setStId(regno);
             student.setName(uName);
-            student.setAddress1(addressL1);
-            student.setAddress2(addressL2);
+            student.setAddress_line1(addressL1);
+            student.setAddress_line2(addressL2);
             student.setCity(city);
             student.setEmail(email);
-            student.setMobilenumber(phoneNumber);
+            student.setMobile_no(phoneNumber);
             student.setNic(IDNumber);
             student.setLevel(selectedLevel);
             student.setGender(selectedGender);
-            student.setRoomid(404);
+            student.setRoom_id(404);
 
 
-        userApi.save(student)
+        studentAPI.save(student)
                 .enqueue(new Callback<Student>() {
                     @Override
                     public void onResponse(Call<Student> call, Response<Student> response) {

@@ -1,24 +1,45 @@
 package com.example.hostelmanagmentsystemapp.entity;
 
 public class Student {
-    private String regNo;
+    private String st_id;
     private String name;
-    private String address1;
-    private String address2;
+    private String address_line1;
+    private String address_line2;
     private String city;
-    private String email;
-    private String nic;
-    private String gender;
-    private int mobilenumber;
-    private int level;
-    private int roomid;
 
-    public String getRegNo() {
-        return regNo;
+    private String nic;
+    private String email;
+    private String gender;
+    private Long mobile_no;
+    private int level;
+    private int room_id;
+
+    // Constructors, getters, and setters
+
+    public Student() {
+        // Default constructor
     }
 
-    public void setRegNo(String regNo) {
-        this.regNo = regNo;
+    public Student(String st_id, String name, String address_line1, String address_line2, String city, String nic, String email, String gender, Long mobile_no, int level, int room_id) {
+        this.st_id = st_id;
+        this.name = name;
+        this.address_line1 = address_line1;
+        this.address_line2 = address_line2;
+        this.city = city;
+        this.nic = nic;
+        this.email = email;
+        this.gender = gender;
+        this.mobile_no = mobile_no;
+        this.level = level;
+        this.room_id = room_id;
+    }
+
+    public String getStId() {
+        return st_id;
+    }
+
+    public void setStId(String st_id) {
+        this.st_id = st_id;
     }
 
     public String getName() {
@@ -29,20 +50,20 @@ public class Student {
         this.name = name;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress_line1() {
+        return address_line1;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
+    public void setAddress_line1(String address_line1) {
+        this.address_line1 = address_line1;
     }
 
-    public String getAddress2() {
-        return address2;
+    public String getAddress_line2() {
+        return address_line2;
     }
 
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress_line2(String address_line2) {
+        this.address_line2 = address_line2;
     }
 
     public String getCity() {
@@ -53,20 +74,20 @@ public class Student {
         this.city = city;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getNic() {
         return nic;
     }
 
     public void setNic(String nic) {
         this.nic = nic;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getGender() {
@@ -77,12 +98,12 @@ public class Student {
         this.gender = gender;
     }
 
-    public int getMobilenumber() {
-        return mobilenumber;
+    public Long getMobile_no() {
+        return mobile_no;
     }
 
-    public void setMobilenumber(int mobilenumber) {
-        this.mobilenumber = mobilenumber;
+    public void setMobile_no(Long mobile_no) {
+        this.mobile_no = mobile_no;
     }
 
     public int getLevel() {
@@ -93,11 +114,28 @@ public class Student {
         this.level = level;
     }
 
-    public int getRoomid() {
-        return roomid;
+    public int getRoom_id() {
+        return room_id;
     }
 
-    public void setRoomid(int roomid) {
-        this.roomid = roomid;
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "stId='" + st_id + '\'' +
+                ", name='" + name + '\'' +
+                ", address_line1='" + address_line1 + '\'' +
+                ", address_line2='" + address_line2 + '\'' +
+                ", city='" + city + '\'' +
+                ", nic='" + nic + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", mobile_no=" + mobile_no +
+                ", level=" + level +
+                ", room_id=" + room_id +
+                '}';
     }
 }

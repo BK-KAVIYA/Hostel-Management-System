@@ -58,7 +58,8 @@ public class SecurityConfig {
                     auth.requestMatchers("/").permitAll();
                     auth.requestMatchers("/student/viewallstudent").permitAll();
                     auth.requestMatchers("/student/register").permitAll();
-                    auth.requestMatchers("/student/findstudent/{registrationNumber}").hasAuthority("USER");
+                    auth.requestMatchers("/student/login").permitAll();
+                    auth.requestMatchers("/student/findstudent/{registrationNumber}").hasAuthority("ADMIN");
                     auth.requestMatchers("/user").hasAuthority("USER");
                     auth.requestMatchers("/register").hasAuthority("STUDENT");
                     auth.requestMatchers("/admin").hasAuthority("ADMIN");

@@ -12,9 +12,18 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.HostelManagmentSystemApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Add_"
+            android:exported="false" />
+        <activity
+            android:name=".ComplaintManagment.ComplaintFragment"
+            android:exported="false" />
+        <activity
+            android:name=".MyQr"
+            android:exported="false" />
         <activity
             android:name=".MessageFragment"
             android:exported="false" />

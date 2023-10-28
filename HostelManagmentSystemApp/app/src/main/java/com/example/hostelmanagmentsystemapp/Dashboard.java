@@ -3,6 +3,7 @@ package com.example.hostelmanagmentsystemapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -32,6 +33,11 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         getSupportActionBar().hide();
 
+
+        Intent intent=getIntent();
+        String Id=intent.getStringExtra("Id");
+
+        AppData.getInstance().setId(Id);
 
         Avatar=findViewById(R.id.dash_avtr);
 

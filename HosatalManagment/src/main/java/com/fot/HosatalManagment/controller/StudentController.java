@@ -3,6 +3,7 @@ package com.fot.HosatalManagment.controller;
 import com.fot.HosatalManagment.entity.Student;
 import com.fot.HosatalManagment.service.StudentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,11 @@ public class StudentController {
     public ResponseEntity<Student> getStudentDetails(@PathVariable String registrationNumber) {
         Student student = studentServiceImp.getStudentDetails(registrationNumber);
         return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<Object> userhome(){
+        String message = "login successfully";
+        return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"" + message + "\"}");
     }
 }

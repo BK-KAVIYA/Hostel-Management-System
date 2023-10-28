@@ -1,36 +1,27 @@
 package com.example.hostelmanagmentsystemapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Base64;
-import android.util.Log;
 import android.util.Pair;
-import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hostelmanagmentsystemapp.entity.User;
 import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitClient;
-import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitService;
-import com.example.hostelmanagmentsystemapp.reotrfit.UserApi;
+import com.example.hostelmanagmentsystemapp.reotrfit.StudentAPI;
 import com.google.android.material.textfield.TextInputLayout;
 
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +38,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextInputLayout email,password;
 
-    Connection connection;
+    static String base64Credentials;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,24 +106,27 @@ void loginAccount(String uname, String upassword) {
     String credentials = username + ":" + password;
 
     // Encode the credentials in Base64
-    String base64Credentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+    base64Credentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
     // Create a Retrofit instance with the Base64-encoded credentials
-    Retrofit retrofit = RetrofitClient.getClient(base64Credentials);
-    UserApi apiService = retrofit.create(UserApi.class);
+//    Retrofit retrofit = RetrofitClient.getClient(base64Credentials);
+//    StudentAPI apiService = retrofit.create(StudentAPI.class);
 
 
-    apiService.authentication().enqueue(new Callback<String>() {
+    Login.getStudentApiService().authentication().enqueue(new Callback<Object>() {
         @Override
-        public void onResponse(Call<String> call, Response<String> response) {
+        public void onResponse(Call<Object> call, Response<Object> response) {
             if (response.isSuccessful()) {
                 // Handle a successful response
                 changeInProgress(false);
-                String responseBody = response.body(); // Get the plain text response
-                System.out.println(responseBody);
-                startActivity(new Intent(Login.this,Dashboard.class).putExtra("data",responseBody));
-//                startActivity(new Intent(Login.this,Dashboard.class));
-//                finish();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userID", username);
+                editor.apply();
+
+                startActivity(new Intent(Login.this,Dashboard.class).putExtra("Id",username));
+
             } else {
                 changeInProgress(false);
                 Context context = getApplicationContext();
@@ -140,8 +134,9 @@ void loginAccount(String uname, String upassword) {
             }
         }
 
+
         @Override
-        public void onFailure(Call<String> call, Throwable t) {
+        public void onFailure(Call<Object> call, Throwable t) {
             changeInProgress(false);
             Toast.makeText(Login.this, "Authentication failed due to a network error!", Toast.LENGTH_SHORT).show();
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Error occurred", t);
@@ -174,6 +169,12 @@ void loginAccount(String uname, String upassword) {
 //        }
         return true;
 
+    }
+
+    public static StudentAPI getStudentApiService() {
+        Retrofit retrofit = RetrofitClient.getClient(base64Credentials);
+        //StudentAPI apiService = retrofit.create(StudentAPI.class);
+        return retrofit.create(StudentAPI.class);
     }
 
 }
