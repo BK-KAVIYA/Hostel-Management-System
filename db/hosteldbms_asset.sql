@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `hosteldbms` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `hosteldbms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `hosteldbms`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hosteldbms
 -- ------------------------------------------------------
--- Server version	5.7.31
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `asset` (
   `asset_id` varchar(35) NOT NULL,
   `type` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `target_id` int(11) NOT NULL,
+  `target_id` int NOT NULL,
   PRIMARY KEY (`asset_id`),
   KEY `target_id` (`target_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-26 17:06:04
+-- Dump completed on 2023-10-28 17:22:30
