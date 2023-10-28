@@ -5,12 +5,10 @@ import com.fot.HosatalManagment.entity.Complaint;
 import com.fot.HosatalManagment.entity.Student;
 import com.fot.HosatalManagment.service.ComplaintServiceIMP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -23,5 +21,12 @@ public class ComplaintController {
     public ResponseEntity<Iterable<Complaint>> getComplaintByStudent(@PathVariable String registrationNumber) {
         Iterable<Complaint> complaints = complaintServiceIMP.getComplaintByStId(registrationNumber);
         return ResponseEntity.ok(complaints);
+    }
+
+    @PostMapping(value = "/create",consumes = {"*/*"})
+    public ResponseEntity<String> createComplaint(@RequestBody  Complaint complaint) {
+        // Handle the complaint and image data
+        complaintServiceIMP.saveComplaint(complaint);
+        return ResponseEntity.ok("Complaint created successfully");
     }
 }

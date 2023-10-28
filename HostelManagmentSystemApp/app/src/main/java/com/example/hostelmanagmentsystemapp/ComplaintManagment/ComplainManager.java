@@ -39,7 +39,7 @@ public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
         }
         holder.status.setText(status);
 
-        String imageUrl = complaintList.get(position).getImage();
+        byte[] imageUrl = complaintList.get(position).getImage();
 
 //        if (imageUrl != null) {
 //            Instant Glide;

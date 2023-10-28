@@ -2,7 +2,10 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <device id="_device_class_phone" />
+        <target>android-UpsideDownCakePrivacySandbox</target>
+      </config>
     </shared>
   </component>
   <component name="AutoImportSettings">
@@ -15,7 +18,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dilsh\.android\avd\Pixel_6_API_34.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HI8L5PN7TOBEY9UO]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -26,6 +29,7 @@
       <list>
         <option value="Interface" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile_vertical" />
         <option value="Class" />
       </list>
     </option>
@@ -66,6 +70,7 @@
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\font" />
     </key>
     <key name="android.template.1277228743">
+      <recent name="com.example.hostelmanagmentsystemapp" />
       <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment" />
     </key>
     <key name="android.template.-800454186">

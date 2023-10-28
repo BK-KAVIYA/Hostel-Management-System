@@ -1,6 +1,7 @@
 package com.example.hostelmanagmentsystemapp.reotrfit;
 
 import com.example.hostelmanagmentsystemapp.ComplaintManagment.Complaint;
+import com.example.hostelmanagmentsystemapp.entity.Hostel;
 import com.example.hostelmanagmentsystemapp.entity.Student;
 
 import java.util.List;
@@ -24,4 +25,7 @@ public interface StudentAPI {
 
     @GET("/complaint/findscompaints/{registrationNumber}")
     Call<List<Complaint>> getComplaintByStudent(@Path("registrationNumber") String studentID);
+
+    @GET("/hostels/{hostelName}")
+    Call<Hostel> getHostelInformationByName(@Path("hostelName") String hostelName);
 }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -45,8 +46,8 @@ public class ComplaintFragment extends AppCompatActivity {
         Addcomplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MyBookingFragment.this, Dashboard.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ComplaintFragment.this, AddComplain.class);
+                startActivity(intent);
             }
         });
 

@@ -29,7 +29,8 @@ public class HomeFragment extends Fragment {
         myRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the My Room component
+                Intent myroom=new Intent(getContext(), MyRoom.class);
+                startActivity(myroom);
             }
         });
 

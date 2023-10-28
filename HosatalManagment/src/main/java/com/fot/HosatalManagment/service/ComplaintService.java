@@ -8,4 +8,6 @@ public interface ComplaintService {
 
 
     Iterable<Complaint> getComplaintByStId(String ID);
+
+    void saveComplaint(Complaint complaint);
 }

@@ -17,4 +17,9 @@ public class ComplaintServiceIMP implements ComplaintService{
     public Iterable<Complaint> getComplaintByStId(String ID) {
         return  complaintRepo.GetComplaintsByStudent(ID);
     }
+
+    @Override
+    public void saveComplaint(Complaint complaint) {
+        complaintRepo.save(complaint);
+    }
 }
