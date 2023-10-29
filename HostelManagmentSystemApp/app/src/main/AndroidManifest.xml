@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MyAttendance"
+            android:exported="false" />
+        <activity
             android:name=".MyRoom"
             android:exported="false" />
         <activity
@@ -27,6 +30,18 @@
             android:exported="false" />
         <activity
             android:name=".ComplaintManagment.ComplaintFragment"
+            android:exported="false" />
+        <activity
+            android:name=".securityofficer.SecurityOfficerDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".securityofficer.SecurityOfficerHomeFragment"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceManagment.AddAttendanceDetails"
+            android:exported="false" />
+        <activity
+            android:name=".AttendanceManagment.MyAttendance"
             android:exported="false" />
         <activity
             android:name=".MyQr"

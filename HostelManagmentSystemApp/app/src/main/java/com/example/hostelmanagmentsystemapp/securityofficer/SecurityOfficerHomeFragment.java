@@ -12,16 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.hostelmanagmentsystemapp.AttendanceManagment.AddAttendanceDetails;
+import com.example.hostelmanagmentsystemapp.ComplaintManagment.AddComplain;
 import com.example.hostelmanagmentsystemapp.ComplaintManagment.ComplaintFragment;
+import com.example.hostelmanagmentsystemapp.Login;
 import com.example.hostelmanagmentsystemapp.MyQr;
 import com.example.hostelmanagmentsystemapp.MyRoom;
 import com.example.hostelmanagmentsystemapp.R;
 import com.example.hostelmanagmentsystemapp.entity.Asset;
 import com.example.hostelmanagmentsystemapp.entity.Attendance;
+import com.example.hostelmanagmentsystemapp.entity.Student;
 import com.example.hostelmanagmentsystemapp.utill.AssetAdapter;
 import com.example.hostelmanagmentsystemapp.utill.AttendanceAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SecurityOfficerHomeFragment extends Fragment {
 
@@ -40,24 +48,41 @@ public class SecurityOfficerHomeFragment extends Fragment {
         attendanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the Attendance component
+               Intent intent=new Intent(getActivity(), AddComplain.class);
+               startActivity(intent);
+
             }
         });
 
 
-        ArrayList<Attendance> attendanceList = new ArrayList<>();
-        attendanceList.add(new Attendance("TG001", 100,"2023-10-29 12:25:23", "leave"));
-        attendanceList.add(new Attendance("TG001", 100,"2023-10-29 12:25:23", "IN"));
-        attendanceList.add(new Attendance("TG001", 100,"2023-10-29 12:25:23", "leave"));
+        Login.getStudentApiService().getAllAttendance().enqueue(new Callback<List<Attendance>>() {
+            @Override
+            public void onResponse(retrofit2.Call<List<Attendance>> call, Response<List<Attendance>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Attendance> attendanceList = new ArrayList<>();
+                    List<Attendance> allAttendance = response.body();
+                    for (Attendance att: allAttendance) {
+                        attendanceList.add(new Attendance(att.getStudent_id(), att.getRoom_id(),att.getDate_and_time(), att.getStatus()));
+                    }
+                    // Create the custom ArrayAdapter
+                    AttendanceAdapter adapter = new AttendanceAdapter(getContext(), R.layout.attendance_item_layout, attendanceList);
 
-        // Create the custom ArrayAdapter
-        AttendanceAdapter adapter = new AttendanceAdapter(getContext(), R.layout.attendance_item_layout, attendanceList);
+                    // Find the ListView in your layout
+                    ListView listView = v.findViewById(R.id.listViewAttendance);
 
-        // Find the ListView in your layout
-        ListView listView = v.findViewById(R.id.listViewAttendance);
+                    // Set the adapter for the ListView
+                    listView.setAdapter(adapter);
+                } else {
+                    // Handle an unsuccessful response here
+                }
+            }
 
-        // Set the adapter for the ListView
-        listView.setAdapter(adapter);
+            @Override
+            public void onFailure(retrofit2.Call<List<Attendance>> call, Throwable t) {
+                System.out.println("Error occur");
+            }
+        });
+
 
         return v;
 

@@ -32,7 +32,7 @@ public class SecurityOfficerDashboard extends AppCompatActivity {
 
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_security_officer_dashboard);
         getSupportActionBar().hide();
 
 

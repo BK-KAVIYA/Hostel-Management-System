@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +17,14 @@ import android.Manifest;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.hostelmanagmentsystemapp.AttendanceManagment.AddAttendanceDetails;
 import com.example.hostelmanagmentsystemapp.R;
 import com.google.zxing.Result;
 
 public class AddComplain extends AppCompatActivity {
 
     private CodeScanner mCodeScanner;
+    private String UserID;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +39,27 @@ public class AddComplain extends AppCompatActivity {
             // Permission is already granted, proceed with camera-related functionality
             CodeScannerView scannerView = findViewById(R.id.scanner_view);
             mCodeScanner = new CodeScanner(this, scannerView);
+
+            SharedPreferences sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            UserID = sharedPreferences.getString("userID", "TG001");
             mCodeScanner.setDecodeCallback(new DecodeCallback() {
                 @Override
                 public void onDecoded(@NonNull final Result result) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent=new Intent(AddComplain.this,AddComplainDetails.class);
-                            intent.putExtra("assetID",result.getText());
-                            Toast.makeText(AddComplain.this, result.getText(), Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
+                            if (UserID.startsWith("TG")){
+                                Intent intent=new Intent(AddComplain.this,AddComplainDetails.class);
+                                intent.putExtra("assetID",result.getText());
+                                Toast.makeText(AddComplain.this, result.getText(), Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            } else if (UserID.startsWith("S")) {
+                                Intent intent=new Intent(AddComplain.this, AddAttendanceDetails.class);
+                                intent.putExtra("studentID",result.getText());
+                                Toast.makeText(AddComplain.this, result.getText(), Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+
                         }
                     });
                 }

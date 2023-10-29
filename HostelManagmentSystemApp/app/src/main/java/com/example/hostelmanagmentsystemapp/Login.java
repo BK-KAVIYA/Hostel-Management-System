@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hostelmanagmentsystemapp.reotrfit.RetrofitClient;
 import com.example.hostelmanagmentsystemapp.reotrfit.StudentAPI;
+import com.example.hostelmanagmentsystemapp.securityofficer.SecurityOfficerDashboard;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -124,8 +125,14 @@ void loginAccount(String uname, String upassword) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("userID", username);
                 editor.apply();
+                if (username.startsWith("TG")){
+                    startActivity(new Intent(Login.this,Dashboard.class).putExtra("Id",username));
+                } else if (username.startsWith("S")) {
+                    startActivity(new Intent(Login.this, SecurityOfficerDashboard.class).putExtra("Id",username));
+                }else {
+                    System.out.println("Invalid User");
+                }
 
-                startActivity(new Intent(Login.this,Dashboard.class).putExtra("Id",username));
 
             } else {
                 changeInProgress(false);

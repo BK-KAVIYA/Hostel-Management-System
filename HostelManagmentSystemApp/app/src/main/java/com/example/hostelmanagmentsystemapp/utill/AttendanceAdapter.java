@@ -40,17 +40,17 @@ public class AttendanceAdapter extends ArrayAdapter<Attendance> {
         TextView status = convertView.findViewById(R.id.textStatus);
 
         // Populate the data into the template view using the data object
-        studentId.setText(attendance.getStudent_id());
-        room.setText(attendance.getRoom_id());
-        dateandtime.setText(attendance.getDate_and_time());
+        studentId.setText("Registration Number : "+attendance.getStudent_id());
+        room.setText("Room : "+String.valueOf(attendance.getRoom_id()));
+        dateandtime.setText("Date & Time : "+attendance.getDate_and_time());
         status.setText(attendance.getStatus());
 
         // Set background color based on position (alternating colors)
-        if (position % 2 == 0) {
-            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.evenItemColor));
-        } else {
-            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.oddItemColor));
-        }
+//        if (position % 2 == 0) {
+//            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.evenItemColor));
+//        } else {
+//            convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.oddItemColor));
+//        }
 
         // Return the completed view to render on screen
         return convertView;

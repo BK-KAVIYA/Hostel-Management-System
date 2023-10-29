@@ -18,7 +18,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dilsh\.android\avd\Pixel_6_API_34.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HI8L5PN7TOBEY9UO]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -58,13 +58,13 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
     "last_directory_selection": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/drawable",
-    "last_opened_file_path": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/menu"
+    "last_opened_file_path": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/layout"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\menu" />
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\layout" />
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\menu" />
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\drawable" />
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\java\com\example\hostelmanagmentsystemapp\Complaint" />
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\java\com\example\hostelmanagmentsystemapp" />
@@ -72,6 +72,9 @@
     <key name="android.template.1277228743">
       <recent name="com.example.hostelmanagmentsystemapp" />
       <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment" />
+    </key>
+    <key name="android.template.856072020">
+      <recent name="com.example.hostelmanagmentsystemapp.AttendanceManagment" />
     </key>
     <key name="android.template.-800454186">
       <recent name="com.example.hostelmanagmentsystemapp" />
@@ -83,6 +86,7 @@
       <recent name="com.example.hostelmanagmentsystemapp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment.AttendanceManagment" />
       <recent name="com.example.hostelmanagmentsystemapp.utill" />
       <recent name="com.example.hostelmanagmentsystemapp.securityofficer" />
     </key>
@@ -168,5 +172,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/hostelmanagmentsystemapp/securityofficer/SecurityOfficerHomeFragment.java</url>
+          <line>49</line>
+          <properties method="onClick">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

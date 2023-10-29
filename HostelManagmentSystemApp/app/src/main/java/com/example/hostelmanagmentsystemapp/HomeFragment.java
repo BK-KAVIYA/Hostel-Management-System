@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.hostelmanagmentsystemapp.AttendanceManagment.MyAttendance;
 import com.example.hostelmanagmentsystemapp.ComplaintManagment.ComplaintFragment;
 
 public class HomeFragment extends Fragment {
@@ -38,7 +39,8 @@ public class HomeFragment extends Fragment {
         attendanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the Attendance component
+                Intent myattendance=new Intent(getContext(), MyAttendance.class);
+                startActivity(myattendance);
             }
         });
 
