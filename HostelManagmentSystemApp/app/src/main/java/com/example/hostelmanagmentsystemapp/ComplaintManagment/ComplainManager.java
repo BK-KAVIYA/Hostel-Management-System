@@ -1,14 +1,19 @@
 package com.example.hostelmanagmentsystemapp.ComplaintManagment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hostelmanagmentsystemapp.R;
 
 
-import java.time.Instant;
+
 import java.util.List;
 
 public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
@@ -39,7 +44,7 @@ public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
         }
         holder.status.setText(status);
 
-        byte[] imageUrl = complaintList.get(position).getImage();
+        //byte[] imageUrl = complaintList.get(position).getImage();
 
 //        if (imageUrl != null) {
 //            Instant Glide;
@@ -48,6 +53,26 @@ public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
 //                    .into(holder.imageView);
 //        }
 
+
+        // Decode the base64 string to obtain a byte array representing the image
+      //  byte[] imageData = Base64.decode(complaintList.get(position).getImage(), Base64.DEFAULT);
+
+        // Create a Bitmap from the byte array
+      //  Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+        // Set the Bitmap as the source for an ImageView
+//        ImageView imageView = findViewById(R.id.imageView); // Replace with your ImageView ID
+//        imageView.setImageBitmap(bitmap);
+
+     //   holder.imageView.setImageBitmap(bitmap);
+
+
+//        if (imageData != null) {
+//            Instant Glide=null;
+//            Glide.with(holder.imageView.getContext())
+//                    .load(imageUrl)
+//                    .into(holder.imageView);
+//        }
 
     }
 

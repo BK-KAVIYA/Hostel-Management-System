@@ -2,23 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_marginLeft="10dp"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textAssetId"
         android:text="Asset ID"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/textCategory"
         android:text="Asset Category"
+        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/textStatus"
         android:text="Ststus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="18sp"/>
 </LinearLayout>

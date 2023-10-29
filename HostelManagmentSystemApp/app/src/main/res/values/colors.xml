@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="hash">#A1A2AB</color>
+    <color name="evenItemColor">#E6E6FA</color>
+    <color name="oddItemColor">#D8BFD8</color>
 </resources>

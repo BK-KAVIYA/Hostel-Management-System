@@ -14,7 +14,7 @@ public class Complaint {
     private String asset_id;
     private String complaint;
     @Lob
-    private byte[] image;
+    private String image;
     private String sub_warden_id;
     private String warden_id;
     private String student_id;
@@ -24,7 +24,7 @@ public class Complaint {
     public Complaint() {
     }
 
-    public Complaint(int compalint_id, String asset_id, String complaint, byte[] image, String sub_warden_id, String warden_id, String student_id, String date_and_time, String status) {
+    public Complaint(int compalint_id, String asset_id, String complaint, String image, String sub_warden_id, String warden_id, String student_id, String date_and_time, String status) {
         this.compalint_id = compalint_id;
         this.asset_id = asset_id;
         this.complaint = complaint;
@@ -36,7 +36,7 @@ public class Complaint {
         this.status = status;
     }
 
-    public Complaint(String asset_id, String complaint, byte[] image, String sub_warden_id, String warden_id, String student_id, String date_and_time, String status) {
+    public Complaint(String asset_id, String complaint, String image, String sub_warden_id, String warden_id, String student_id, String date_and_time, String status) {
         this.asset_id = asset_id;
         this.complaint = complaint;
         this.image = image;
@@ -71,11 +71,11 @@ public class Complaint {
         this.complaint = complaint;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

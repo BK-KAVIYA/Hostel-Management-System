@@ -76,6 +76,7 @@ public class ComplaintFragment extends AppCompatActivity {
                     if (complaints != null) {
                         for (Complaint complaint : complaints) {
                             complaintList.add(new Complaint(complaint.getAsset_id(),complaint.getComplaint(),complaint.getImage(),complaint.getDate_and_time(),complaint.getStatus()));
+                            System.out.println(complaint.getAsset_id());
                         }
                         complainManager = new ComplainManager(getApplicationContext(), complaintList);
                         recyclerView.setAdapter(complainManager);

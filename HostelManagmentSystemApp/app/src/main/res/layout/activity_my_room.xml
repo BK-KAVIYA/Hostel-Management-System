@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textRoomNumber"
+        android:id="@+id/textRoom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -17,9 +17,31 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center" />
+    <TextView
+        android:id="@+id/textRoomNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textRoom"
+        android:layout_marginTop="10dp"
+        android:text="101"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/assettxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textRoomNumber"
+        android:layout_marginTop="24dp"
+        android:text="Your Room Asset List"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp" />
 
     <ListView
         android:id="@+id/listViewAssets"
+        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textRoomNumber" />
