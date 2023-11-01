@@ -2,12 +2,12 @@ package com.fot.HosatalManagment.service;
 
 import com.fot.HosatalManagment.entity.Complaint;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ComplaintService {
 
 
-    Optional<Complaint> getComplaintByStId(String ID);
+    List<Complaint> getComplaintByStId(String ID);
 
     void saveComplaint(Complaint complaint);
 }

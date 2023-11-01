@@ -28,19 +28,8 @@ public class ComplaintController {
     @Autowired
     private ComplaintServiceIMP complaintServiceIMP;
     @GetMapping("/findscompaints/{registrationNumber}")
-    public ResponseEntity<Optional<Complaint>> getComplaintByStudent(@PathVariable String registrationNumber) {
-        Optional<Complaint> complaints = complaintServiceIMP.getComplaintByStId(registrationNumber);
-
-        List<ComplaintWithImageData> complaintsWithImageData = new ArrayList<>();
-
-//        complaints.forEach(complaint -> {
-////            byte[] imageData = complaint.getImage().getBytes(); // Assuming you have a method to get image data
-////            if (imageData != null) {
-////                String base64Image = Base64.getEncoder().encodeToString(imageData);
-////                ComplaintWithImageData complaintWithImageData = new ComplaintWithImageData(complaint, base64Image);
-////                complaintsWithImageData.add(complaintWithImageData);
-//     //       }
-//        });
+    public ResponseEntity<List<Complaint>> getComplaintByStudent(@PathVariable String registrationNumber) {
+        List<Complaint> complaints = complaintServiceIMP.getComplaintByStId(registrationNumber);
 
         return ResponseEntity.ok(complaints);
     }
@@ -55,12 +44,11 @@ public class ComplaintController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
-        String uploadImage = complaintServiceIMP.uploadImage(file);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(uploadImage);
-
+    public void saveComplaint(@RequestBody Complaint complaint) {
+         complaintServiceIMP.saveComplaint(complaint);
     }
+
+
 
 //    @GetMapping("/{fileName}")
 //    public ResponseEntity<?> downloadImage(@PathVariable int fileName){

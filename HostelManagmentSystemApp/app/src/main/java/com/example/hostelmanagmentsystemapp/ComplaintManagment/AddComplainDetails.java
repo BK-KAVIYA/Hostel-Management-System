@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,21 +32,26 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
+import com.example.hostelmanagmentsystemapp.AttendanceManagment.AddAttendanceDetails;
 import com.example.hostelmanagmentsystemapp.Login;
 import com.example.hostelmanagmentsystemapp.R;
 import com.example.hostelmanagmentsystemapp.entity.Hostel;
 import com.example.hostelmanagmentsystemapp.entity.Student;
 import com.google.common.util.concurrent.ListenableFuture;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +59,8 @@ import retrofit2.Response;
 public class AddComplainDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private TextView assetId;
+
+    private TextView complaintxt;
     private PreviewView previewView;
     private ImageCapture imageCapture;
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -62,6 +71,8 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
     private File capturedImageFile;
     String selectedHostel=null;
     String fileName=null;
+
+    ProgressBar progressBar;
 
     private EditText assetID;
     private EditText studentID;
@@ -92,6 +103,8 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
         wardenID=findViewById(R.id.warden_txt);
         hostelName=findViewById(R.id.hostelName);
         button=findViewById(R.id.comp_btn);
+        complaintxt=findViewById(R.id.complaint_txt);
+        progressBar=findViewById(R.id.progress_bar_inCom);
 
 
 
@@ -102,57 +115,58 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap imageBitmap = ((BitmapDrawable) assetCameraImageView.getDrawable()).getBitmap();
+                changeInProgress(true);
 
-                // Define the directory where you want to save the image
-                File directory = new File("D:/image");
+                BitmapDrawable drawable = (BitmapDrawable) assetCameraImageView.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
 
-                // Check if the directory exists, and if not, create it
-                if (!directory.exists()) {
-                    directory.mkdirs(); // Create the directory and any necessary parent directories
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+                // Create a Calendar instance to represent the current date and time
+                Calendar calendar = Calendar.getInstance();
+
+                // Create a SimpleDateFormat to format the date as desired
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                // Format the current date and time to a string
+                String currentDate = dateFormat.format(calendar.getTime());
+
+                Complaint complaint=new Complaint();
+                complaint.setAsset_id(assetId.getText().toString());
+                complaint.setComplaint(complaintxt.getText().toString());
+                complaint.setImage(base64Image);
+                complaint.setSub_warden_id(subWardenID.getText().toString());
+                complaint.setWarden_id(wardenID.getText().toString());
+                complaint.setStudent_id(studentID.getText().toString());
+                complaint.setDate_and_time(currentDate);
+                complaint.setStatus("Open");
+
+                if(!(complaintxt.getText().toString().isEmpty() && subWardenID.getText().toString().isEmpty() && wardenID.getText().toString().isEmpty())) {
+                    Login.getStudentApiService().saveComplaint(complaint).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<Void> call, Response<Void> response) {
+                            changeInProgress(false);
+                            Intent intent = new Intent(AddComplainDetails.this, ComplaintFragment.class);
+                            Toast.makeText(AddComplainDetails.this, "Complain is Added!!", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                            changeInProgress(false);
+                            Toast.makeText(AddComplainDetails.this, "Error Occur!!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(AddComplainDetails.this, "Please filled the all the fields!!", Toast.LENGTH_SHORT).show();
                 }
 
-                // Create a file name with asset ID and timestamp
-                String assetId = "404/TA/001"; // Replace with the actual asset ID
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                fileName = assetId + "_" + timeStamp + ".jpg";
 
-                // Create a file object for the image in the directory
-                File imageFile = new File(directory, fileName);
-
-                // Use an AsyncTask to save the image in the background
-                AsyncTask<Void, Void, File> saveImageTask = new AsyncTask<Void, Void, File>() {
-                    @Override
-                    protected File doInBackground(Void... params) {
-                        File imageFile = new File(directory, fileName);
-                        try {
-                            FileOutputStream outStream = new FileOutputStream(imageFile);
-                            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-                            outStream.flush();
-                            outStream.close();
-                            return imageFile;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(File result) {
-                        if (result != null) {
-                            // The image is saved, and you can update your database with the file name (result.getName()).
-                            System.out.println("Image save");
-                        } else {
-                            // Handle the case where the image saving failed.
-                            System.out.println("Image save failed");
-                        }
-                    }
-                };
-
-                // Execute the AsyncTask
-                saveImageTask.execute();
-
-                
             }
         });
 
@@ -166,14 +180,6 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
                 android.R.layout
                         .simple_spinner_dropdown_item);
         hostelName.setAdapter(ad);
-
-
-
-
-
-
-
-
 
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
@@ -281,5 +287,15 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    void changeInProgress(boolean inProgress){
+        if (inProgress){
+            progressBar.setVisibility(View.VISIBLE);
+            button.setVisibility(View.GONE);
+        }else {
+            progressBar.setVisibility(View.GONE);
+            button.setVisibility(View.VISIBLE);
+        }
     }
 }

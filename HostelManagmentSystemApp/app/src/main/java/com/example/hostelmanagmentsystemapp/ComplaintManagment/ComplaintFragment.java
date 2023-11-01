@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.hostelmanagmentsystemapp.Login;
 import com.example.hostelmanagmentsystemapp.R;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +35,9 @@ public class ComplaintFragment extends AppCompatActivity {
     private List<Complaint> complaintList;
     private Button Addcomplaint;
 
+    private ProgressBar progressBar;
+
+    private TextView progressTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,10 @@ public class ComplaintFragment extends AppCompatActivity {
         // Hide the title bar (action bar)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_complaint);
+        progressBar=findViewById(R.id.progress_bar_list);
+        progressTxt=findViewById(R.id.progress_txt);
+
+        changeInProgress(true);
 
 
 
@@ -46,8 +56,9 @@ public class ComplaintFragment extends AppCompatActivity {
         Addcomplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ComplaintFragment.this, AddComplain.class);
+                Intent intent = new Intent(ComplaintFragment.this, AddComplainDetails.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -72,6 +83,7 @@ public class ComplaintFragment extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     List<Complaint> complaints = response.body();
+                    changeInProgress(false);
 
                     if (complaints != null) {
                         for (Complaint complaint : complaints) {
@@ -99,5 +111,15 @@ public class ComplaintFragment extends AppCompatActivity {
 //        complaintList.add(new Complaint("101/TP/006","Fan is not working","image","dateTime","Open"));
 
 
+    }
+
+    void changeInProgress(boolean inProgress){
+        if (inProgress){
+            progressBar.setVisibility(View.VISIBLE);
+            progressTxt.setVisibility(View.VISIBLE);
+        }else {
+            progressBar.setVisibility(View.GONE);
+            progressTxt.setVisibility(View.GONE);
+        }
     }
 }

@@ -42,4 +42,11 @@ public class StudentController {
         String message = "login successfully";
         return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"" + message + "\"}");
     }
+
+
+    @GetMapping("/studentLevel/{studentId}")
+    public ResponseEntity<Integer> getStudentLevel(@PathVariable String studentId) {
+        Integer studentLevel = studentServiceImp.getStudentLevel(studentId);
+        return new ResponseEntity<>(studentLevel, HttpStatus.OK);
+    }
 }

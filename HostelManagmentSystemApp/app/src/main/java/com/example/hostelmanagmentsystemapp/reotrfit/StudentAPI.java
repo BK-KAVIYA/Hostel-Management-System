@@ -4,9 +4,11 @@ import com.example.hostelmanagmentsystemapp.ComplaintManagment.Complaint;
 import com.example.hostelmanagmentsystemapp.entity.Asset;
 import com.example.hostelmanagmentsystemapp.entity.Attendance;
 import com.example.hostelmanagmentsystemapp.entity.Hostel;
+import com.example.hostelmanagmentsystemapp.entity.Notice;
 import com.example.hostelmanagmentsystemapp.entity.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -54,4 +56,17 @@ public interface StudentAPI {
 
     @GET("/attendance/getByStudentId/{studentId}")
     Call<List<Attendance>> getAttendanceDetailsByStudentId(@Path("studentId") String studentId);
+
+
+    //add complaint to database
+    @POST("/complaint/save")
+    Call<Void> saveComplaint(@Body Complaint complaint);
+
+    //Get News By level
+    @GET("/notices/getByLevel/{level}")
+    Call<List<Notice>> getNoticesByLevel(@Path("level") int level);
+
+    //GET Student Level
+    @GET("/student/studentLevel/{studentId}")
+    Call<Integer> getStudentLevel(@Path("studentId") String studentId);
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 @Repository
 public interface ComplaintRepo extends CrudRepository<Complaint,Integer> {
     @Procedure(name = "GetComplaintsByStudent")
-    Optional<Complaint> GetComplaintsByStudent(String ID);
+    List<Complaint> GetComplaintsByStudent(String ID);
 
 //    @Procedure(name = "GetComplaintDetails")
 //    Optional<Complaint> GetComplaintDetails(int fileName);
