@@ -18,7 +18,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HI8L5PN7TOBEY9UO]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\dilsh\.android\avd\Pixel_6_API_34.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -51,16 +51,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_directory_selection": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/drawable",
-    "last_opened_file_path": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/layout"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/drawable&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/layout&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\layout" />
@@ -86,8 +86,8 @@
       <recent name="com.example.hostelmanagmentsystemapp" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment.AttendanceManagment" />
       <recent name="com.example.hostelmanagmentsystemapp.utill" />
+      <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment.AttendanceManagment" />
       <recent name="com.example.hostelmanagmentsystemapp.securityofficer" />
     </key>
   </component>

@@ -13,6 +13,9 @@ public interface StudentRepo extends CrudRepository<Student,String> {
     Student getStudentDetails(String registrationNumber);
 
 
+    @Query(value = "SELECT GetStudentLevel(:studentId) as level", nativeQuery = true)
+    Integer callGetStudentLevel(@Param("studentId") String studentId);
+
 //        @Query(value = "CALL GetStudentDetails(:studentID)", nativeQuery = true)
 //        Student getStudentDetails(@Param("studentID") String studentID);
 

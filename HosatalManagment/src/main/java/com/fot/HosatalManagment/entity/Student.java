@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 @Entity
 public class Student {
     @Id
-    @Column(name="st_id")
-    private String stId;
+    //@Column(name="st_id")
+    private String st_id;
 
     private String name;
     private String address_line1;
@@ -26,8 +26,8 @@ public class Student {
         // Default constructor
     }
 
-    public Student(String stId, String name, String address_line1, String address_line2, String city, String nic, String email, String gender, Long mobile_no, int level, int room_id) {
-        this.stId = stId;
+    public Student(String st_id, String name, String address_line1, String address_line2, String city, String nic, String email, String gender, Long mobile_no, int level, int room_id) {
+        this.st_id = st_id;
         this.name = name;
         this.address_line1 = address_line1;
         this.address_line2 = address_line2;
@@ -40,12 +40,12 @@ public class Student {
         this.room_id = room_id;
     }
 
-    public String getStId() {
-        return stId;
+    public String getSt_id() {
+        return st_id;
     }
 
-    public void setStId(String stId) {
-        this.stId = stId;
+    public void setSt_id(String stId) {
+        this.st_id = stId;
     }
 
     public String getName() {
@@ -131,7 +131,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "stId='" + stId + '\'' +
+                "stId='" + st_id + '\'' +
                 ", name='" + name + '\'' +
                 ", address_line1='" + address_line1 + '\'' +
                 ", address_line2='" + address_line2 + '\'' +

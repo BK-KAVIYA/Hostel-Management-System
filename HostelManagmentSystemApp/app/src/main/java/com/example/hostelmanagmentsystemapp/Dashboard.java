@@ -43,7 +43,9 @@ public class Dashboard extends AppCompatActivity {
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent1=new Intent(Dashboard.this,Login.class);
+                startActivity(intent1);
+                finish();
             }
         });
 

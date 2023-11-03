@@ -198,6 +198,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:enabled="false"
                         android:textColor="@color/black" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -214,6 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:enabled="false"
                         android:textColor="@color/black" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -278,19 +280,18 @@
                 android:background="#000"
                 android:text="Add Complaint"
                 android:textColor="#fff" />
+
+            <ProgressBar
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress_bar_inCom"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Luxury Performance SUV"
-        android:fontFamily="@font/bangers"
-        android:textSize="25sp"
-        android:layout_marginTop="-20dp"
-        android:layout_marginLeft="10dp"/>
 
 
 </LinearLayout>

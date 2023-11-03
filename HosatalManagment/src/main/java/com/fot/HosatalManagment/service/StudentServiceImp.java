@@ -30,6 +30,10 @@ public class StudentServiceImp implements StudentService{
         return studentRepo.getStudentDetails(registrationNumber);
     }
 
+    public Integer getStudentLevel(String studentId) {
+        return studentRepo.callGetStudentLevel(studentId);
+    }
+
     @Override
     public Student updateStudent(Student student) {
         return null;

@@ -10,11 +10,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.hostelmanagmentsystemapp.R;
 
 
-
+import java.time.Instant;
 import java.util.List;
+
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.internal.http.HttpHeaders;
 
 public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
     Context context;
@@ -44,14 +51,28 @@ public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
         }
         holder.status.setText(status);
 
-        //byte[] imageUrl = complaintList.get(position).getImage();
+        String base64Image = complaintList.get(position).getImage();
+        byte[] imageBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
 
-//        if (imageUrl != null) {
-//            Instant Glide;
+        if (bitmap != null) {
+            Glide.with(holder.imageView.getContext())
+                    .load(bitmap) // Use the bitmap here
+                    .into(holder.imageView);
+        }
+
+
+//        byte[] imageBytes = complaintList.get(position).getImage();
+//
+//        // Check if imageBytes is not null before using it
+//        if (imageBytes != null) {
 //            Glide.with(holder.imageView.getContext())
-//                    .load(imageUrl)
+//                    .load(imageBytes)
+//                    .apply(new RequestOptions())
 //                    .into(holder.imageView);
 //        }
+
+
 
 
         // Decode the base64 string to obtain a byte array representing the image

@@ -34,22 +34,17 @@ public class SignUp extends AppCompatActivity {
 
     TextInputLayout regNum,userName,address1,address2,city,email,phonenNumber,idNumber,Password,cPassword;
     Button regBtn,regToLoginbtn;
-
     String selectedGender;
-
     int selectedLevel;
     Spinner genderSpinner,levelSpinner;
     ProgressBar progressBar;
 
-    StudentAPI studentAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
 
-        RetrofitService retrofitService = new RetrofitService();
-        studentAPI = retrofitService.getRetrofit().create(StudentAPI.class);
 
         genderSpinner = findViewById(R.id.gender_spinner);
         ArrayAdapter<CharSequence> genderadapter = ArrayAdapter.createFromResource(this, R.array.genders_array, android.R.layout.simple_spinner_item);
@@ -161,10 +156,10 @@ public class SignUp extends AppCompatActivity {
             student.setNic(IDNumber);
             student.setLevel(selectedLevel);
             student.setGender(selectedGender);
-            student.setRoom_id(404);
+            //student.setRoom_id(404);
 
 
-        studentAPI.save(student)
+        Login.getStudentApiService().save(student)
                 .enqueue(new Callback<Student>() {
                     @Override
                     public void onResponse(Call<Student> call, Response<Student> response) {
@@ -179,35 +174,7 @@ public class SignUp extends AppCompatActivity {
                         Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, "Error occurred", t);
                     }
                 });
-//
-//            String query = "INSERT INTO [slcrms].[dbo].[user] (name, nic, email,phone,address,image,role,password) VALUES (?, ?, ?, ?, ?, ?,?,?)";
-//            PreparedStatement statement = null;
-//            try {
-//                statement = connection.prepareStatement(query);
-//                statement.setString(1, name);
-//                statement.setString(2, IDNumber);
-//                statement.setString(3, email);
-//                statement.setString(4, phoneNumber);
-//                statement.setString(5, uName);
-//                statement.setString(6, "user4.jpg");
-//                statement.setString(7, "user");
-//                statement.setString(8, password);
-//
-//
-//                int rowsAffected = statement.executeUpdate();
-//                if (rowsAffected > 0) {
-//                    Context context = getApplicationContext();
-//                    Toast.makeText(context, "Register Successfully!", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                } else {
-//                    Context context = getApplicationContext();
-//                    Toast.makeText(context, "Register Failed!", Toast.LENGTH_SHORT).show();
-//                }
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//        }
+
 
     }
 
