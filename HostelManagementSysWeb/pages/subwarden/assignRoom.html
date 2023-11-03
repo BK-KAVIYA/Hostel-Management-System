@@ -1,108 +1,173 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Allocation</title>
-    <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Assign Room</title>
     <style>
-        /* Add your custom styles for the dashboard here */
-        .container {
-            padding: 20px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
+        /* Add the provided styles as internal CSS */
+        .form-group {
+            margin-bottom: 15px; /* Add space between form elements */
         }
 
-        .navbar {
+        label {
+            display: block; /* Each label on a new line */
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 70%; /* Make input fields fill the container width */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
             background-color: #3498db;
-            padding: 15px 0;
-            border-radius: 0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        .navbar a.navbar-brand {
-            color: #ff5733;
-            font-size: 24px;
-            font-weight: bold;
+        #StudentTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
         }
 
-        .navbar-toggler-icon {
-            background-color: #fff;
+        #StudentTable th, #StudentTable td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
         }
 
-        .navbar-nav .nav-link {
-            color: #333;
-            font-weight: bold;
-            transition: color 0.3s; /* Add a smooth transition effect */
+        #StudentTable th {
+            background-color: #3498db;
+            color: #fff;
         }
 
-        .navbar-nav .nav-link.active {
-            color: #3498db;
+        #StudentTable tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
         }
 
-        .navbar-nav .nav-link:hover {
-            color: #ff5733; /* Change the text color on hover */
+        #StudentTable tbody tr:hover {
+            background-color: #ddd;
         }
 
-        .card {
-            margin-bottom: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-title {
-            font-size: 24px;
-            color: #333;
-        }
-
-        .card-text {
-            font-size: 18px;
-            color: #777;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
+        
     </style>
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+</head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
-    <div>
-        <a class="navbar-brand" href="../subWdnDashboard.html">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="./manageuser.html">Manage Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="./assignRoom.html">Assign Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./complain.html">Complaints</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./report.html">Report</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./profile.html">Profile</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<h1>Student Room Allocation</h1>
-<div class="room-categories" id="room-categories-container">
-    <!-- Room categories and buttons will be generated here -->
-</div>
-<script src="script.js"></script>
+    <h1>Assignment for Room ID: <span id="room_id"></span></h1>
+
+    <script src="assignrm.js"></script>
+    
+
+    <form id="assignment-form">
+        <div class="form-group">
+            <label for="roomID">Room ID:</label>
+            <!-- Set the value as room_id and make it read-only -->
+            <input type="text" id="roomID" name="roomID" value="" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="studentNumber">Student Number:</label>
+            <input type="text" id="studentNumber" name="studentNumber" required>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="custom-button" id="assignButton">Assign</button>
+        </div>
+    </form>
+    
+    <h2>Current Student in the Room</h2>
+    <table id="StudentTable">
+        <thead >
+            <tr>
+                <th>Id</th>
+                <th>Student Name</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+                <th>City</th>
+                <th>NIC Number</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Mobile Number</th>
+                <th>Student Level</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        // Access the room_id from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const room_id = urlParams.get('room_id');
+    
+        // Display the room_id on the page
+        document.getElementById('room_id').textContent = room_id;
+    
+        // Set the room ID input field value and make it read-only
+        document.getElementById('roomID').value = room_id;
+    
+        document.getElementById("assignButton").addEventListener("click", function() {
+            // Get the student ID from the text input
+            const studentNumber = document.getElementById("studentNumber").value;
+
+            $.ajax({
+            method: "PUT",
+            contentType: "application/json",
+            url: `http://localhost:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            async: true,
+            success: function(data) {
+                alert("done");
+                // swal({
+                // title: "Good job!",
+                // text: "Booking updated successfully!",
+                // icon: "success",
+                // button: "ok!",
+                // });
+                
+                // window.location.href = "BookingView.html";
+            },
+            error: function(xhr, status, error) {
+                alert("Failed to update booking. Error: " + error);
+            }
+        });
+
+    
+            // Make the API call using fetch or any other method
+            // fetch("http://127.0.0.1:8080/student/updateRoomID", {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         studentID: studentNumber,
+            //         newRoomID: room_id, // Use the previously retrieved room_id
+            //     }),
+            // })
+            // .then((response) => {
+            //     if (response.ok) {
+            //         alert("pass");
+            //         // Handle a successful response, e.g., show a success message
+            //         console.log("Assignment successful");
+            //     } else {
+            //         alert("fail");
+            //         // Handle errors, e.g., show an error message
+            //         console.error("Assignment failed");
+            //     }
+            // })
+            // .catch((error) => {
+            //     // Handle network or other errors
+            //     console.error("Error: " + error);
+            // });
+        });
+    </script>
+    
 </body>
 </html>

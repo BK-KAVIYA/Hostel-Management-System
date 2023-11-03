@@ -61,7 +61,7 @@
         <a class="nav-link" href="./manageuser.html">Manage Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./assignRoom.html">Assign Room</a>
+        <a class="nav-link" href="assignRoomHome.html">Assign Room</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./complain.html">Complaints</a>
@@ -76,35 +76,52 @@
   </div>
 </nav>
 
-  <div class="container rounded bg-white  mb-5">
-    <div class="row">
-      <div class="col-md-8 border-right">
-        <div class="p-3 ">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Profile Settings</h4>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-            <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
+<div class="container">
+  <h1>Profile</h1>
+  <div id="profileData"></div>
+</div>
 
-            <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-            <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-          </div>
+<!-- Include jQuery (required for AJAX) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-        </div>
-      </div>
+<script>
+  // URL of your server-side script to fetch user data
+  const url = 'http://192.168.132.60:8080/user/profile';
 
-    </div>
-  </div>
-  </div>
-  </div>
+  // Fetch user data and display it on the page
+  $.ajax({
+    url: url,
+    method: 'GET',
+    success: function(data) {
+      const profileData = document.getElementById('profileData');
+      const table = document.createElement('table');
 
-  <!-- Include Bootstrap JS and Popper.js (optional) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      // Create table rows for each user field
+      Object.keys(data).forEach(key => {
+        const tr = document.createElement('tr');
+
+        // Create table cells for field name and value
+        const fieldNameCell = document.createElement('td');
+        fieldNameCell.textContent = key;
+        tr.appendChild(fieldNameCell);
+
+        const fieldValueCell = document.createElement('td');
+        fieldValueCell.textContent = data[key];
+        tr.appendChild(fieldValueCell);
+
+        table.appendChild(tr);
+      });
+
+      profileData.appendChild(table);
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
+</script>
+
+<!-- Include Bootstrap JS and Popper.js (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
