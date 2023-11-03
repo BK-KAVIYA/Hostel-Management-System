@@ -1,84 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sub Warden Dashboard</title>
-  <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+  <!-- Include Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Include Bootstrap CSS (Bootstrap 5) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
     /* Add your custom styles for the dashboard here */
     .container {
-      padding: 50px;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+    }
+
+    .navbar {
+      background-color: #3498db;
+      padding: 15px 0;
+      border-radius: 0;
+    }
+
+    .navbar a.navbar-brand {
+      color: #FF0000; /* Change to your desired text color */
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .navbar-toggler-icon {
+      background-color: #fff;
+    }
+
+    .navbar-nav .nav-link {
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s; /* Add a smooth transition effect */
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #3498db;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ff5733; /* Change the text color on hover */
     }
 
     .card {
-      margin-bottom: 20px;
+      margin bottom: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .card-text {
+      font-size: 18px;
+      color: #777;
+    }
+
+    .card-body {
+      padding: 20px;
     }
   </style>
 </head>
-
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Manage Users</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Registrations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Complaints</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Visits</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Summaries</a>
-          </li>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
+  <div>
+    <a class="navbar-brand" href="./subWdnDashboard.html">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="./subwarden/manageuser.html">Manage Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./subwarden/registration.html">Assign Room</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./subwarden/complain.html">Complaints</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./subwarden/profile.html">Profile</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fas fa-users"></i> Total Students
+          </h5>
+          <p class="card-text">Count: <span id="totalStudentsCount"></span></p>
+        </div>
       </div>
     </div>
-  </nav>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Widget 1</h5>
-            <p class="card-text">Content for Widget 1 goes here.</p>
-          </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fas fa-exclamation-circle"></i> Total Complaints
+          </h5>
+          <p class="card-text">Count: <span id="totalComplaintsCount"></span></p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Widget 2</h5>
-            <p class="card-text">Content for Widget 2 goes here.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Widget 3</h5>
-            <p class="card-text">Content for Widget 3 goes here.</p>
-          </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fas fa-cubes"></i> Total Assets
+          </h5>
+          <p class="card-text">Count: <span id="totalAssetsCount"></span></p>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Include Bootstrap JS and Popper.js (optional) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Include Bootstrap JS and Popper.js (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Retrieve the counts from the database and update the widget boxes
+  async function fetchCounts() {
+    try {
+      const studentsResponse = await fetch('http://192.168.132.60:8080/totals/students');
+      const complaintsResponse = await fetch('http://192.168.132.60:8080/totals/complaints');
+      const assetsResponse = await fetch('http://192.168.132.60:8080/totals/assets');
+
+      if (!studentsResponse.ok || !complaintsResponse.ok || !assetsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const totalStudentsCount = await studentsResponse.text(); // Convert response to text
+      const totalComplaintsCount = await complaintsResponse.text(); // Convert response to text
+      const totalAssetsCount = await assetsResponse.text(); // Convert response to text
+
+      document.getElementById('totalStudentsCount').textContent = totalStudentsCount;
+      document.getElementById('totalComplaintsCount').textContent = totalComplaintsCount;
+      document.getElementById('totalAssetsCount').textContent = totalAssetsCount;
+    } catch (error) {
+      console.error('Error fetching counts:', error);
+    }
+  }
+
+  // Call the function to fetch counts when the page loads
+  fetchCounts();
+</script>
 </body>
-
 </html>
+

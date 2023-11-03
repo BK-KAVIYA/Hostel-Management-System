@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complaint Note</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<<h1>Complaint Note</h1>
+<form id="complaintForm" action="" method="post">
+    <input type="hidden" id="complaint_id" name="complaint_id" value="">
+    <label for="complaint">Complaint</label>
+    <textarea name="complaint" id="complaint" cols="30" rows="10" placeholder="Enter your complaint here..."></textarea>
+    <input type="submit" value="Submit" onclick="loadComplaintIdAndSubmit();">
+</form>
+<script>
+    function loadComplaintIdAndSubmit() {
+        event.preventDefault();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const complaint_id = urlParams.get('complaint_id');
+        var complaint = $('#complaint').val();
+        $.ajax({
+            type: "POST",
+            url: "http://192.168.132.60:8080/complainResolve/save", // your API endpoint
+            data: {
+                'complaintId': complaint_id,
+                'note': complaint
+            },
+            success: function(response) {
+                console.log("SUCCESS : ", response);
+            },
+            error: function(error) {
+                console.log("ERROR : ", error);
+            }
+        });
+    }
+</script>
+</body>
+</html>
