@@ -69,4 +69,9 @@ public interface StudentAPI {
     //GET Student Level
     @GET("/student/studentLevel/{studentId}")
     Call<Integer> getStudentLevel(@Path("studentId") String studentId);
+
+    //Get no of Student Complain Count using Student ID
+
+    @GET("/totals/complaincount/{studentId}")
+    Call<Integer> getStudentComplaintLevel(@Path("studentId") String studentId);
 }

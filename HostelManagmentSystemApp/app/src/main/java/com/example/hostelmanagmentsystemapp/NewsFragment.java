@@ -19,10 +19,13 @@ import com.example.hostelmanagmentsystemapp.entity.Notice;
 import com.example.hostelmanagmentsystemapp.utill.AssetAdapter;
 import com.example.hostelmanagmentsystemapp.utill.NewsAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class NewsFragment extends Fragment {
@@ -40,7 +43,7 @@ public class NewsFragment extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<Integer> call, Response<Integer> responselevel) {
                 if (responselevel.isSuccessful()) {
-                    Studentlevel = responselevel.body();
+                    Studentlevel = responselevel.body().intValue();
 
                     Login.getStudentApiService().getNoticesByLevel(Studentlevel).enqueue(new Callback<List<Notice>>() {
                         @Override
@@ -66,9 +69,13 @@ public class NewsFragment extends Fragment {
                         }
 
                         @Override
-                        public void onFailure(retrofit2.Call<List<Notice>> call, Throwable t) {
-                            System.out.println("Error occur");
+                        public void onFailure(Call<List<Notice>> call, Throwable t) {
+                            // Log the error details
+                            System.out.println("Error occurred: " + t.getMessage());
+
                         }
+
+
                     });
                 } else {
                     System.out.println("It is unsucess!!");

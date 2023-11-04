@@ -29,11 +29,11 @@ public class SettingFragment extends Fragment {
     private String email=null;
 
     private Connection connection;
-    private TextInputEditText fullname,uemail,uname,idNumber,mobile,password;
+    private TextInputEditText fullname,uemail,uname,address,idNumber,mobile,password;
     private Button profileButton;
     RelativeLayout myRelativeLayout;
 
-    TextView numOfBooking,paymentAmount,fullName,Email;
+    TextView stLevel,complainCount,fullNamehead,RegNum;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +45,15 @@ public class SettingFragment extends Fragment {
             public void onResponse(retrofit2.Call<Student> call, Response<Student> response) {
                 //String responseBody = response.body(); // Get the plain text response
                 Student student = response.body();
-                fullName.setText(student.getName());
+                fullNamehead.setText(student.getName());
+                RegNum.setText(student.getStId());
+                fullname.setText(student.getName());
                 uemail.setText(student.getEmail());
-                student.toString();
-                System.out.println(student);
-                System.out.println("It is sucess!!");
+                address.setText(student.getAddress_line1()+", "+student.getAddress_line2()+", "+student.getCity());
+                idNumber.setText(student.getNic());
+                mobile.setText(student.getMobile_no().toString());
+                stLevel.setText(String.valueOf(student.getLevel()));
+
             }
 
             @Override
@@ -58,6 +62,24 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        Login.getStudentApiService().getStudentComplaintLevel(UserID).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(retrofit2.Call<Integer> call, Response<Integer> response) {
+
+                if (response.isSuccessful()){
+                    Integer ccount = response.body();
+                    complainCount.setText(ccount.toString());
+                }else {
+                    System.out.println("Response is unsuccessfull !!");
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Integer> call, Throwable t) {
+                System.out.println("Error occur");
+            }
+        });
     }
 
     @Nullable
@@ -67,16 +89,16 @@ public class SettingFragment extends Fragment {
 
         fullname=view.findViewById(R.id.full_name_profile);
         uemail=view.findViewById(R.id.email_profile);
-        uname=view.findViewById(R.id.user_name_profile);
+        address=view.findViewById(R.id.user_address_profile);
         idNumber=view.findViewById(R.id.id_number_profile);
         mobile=view.findViewById(R.id.phone_number_profile);
         password=view.findViewById(R.id.password_profile);
         profileButton=view.findViewById(R.id.usr_profile_btn);
         myRelativeLayout = view.findViewById(R.id.mybooking);
-        numOfBooking=view.findViewById(R.id.booking_label);
-        paymentAmount=view.findViewById(R.id.payment_label);
-        fullName=view.findViewById(R.id.fullname_field);
-        Email=view.findViewById(R.id.profile_email);
+        stLevel=view.findViewById(R.id.level_label);
+        complainCount=view.findViewById(R.id.complain_label);
+        fullNamehead=view.findViewById(R.id.fullname_field);
+        RegNum=view.findViewById(R.id.profile_regno);
         return view;
     }
 }

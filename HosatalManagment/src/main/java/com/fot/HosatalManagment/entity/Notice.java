@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "student_notice")
 public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nid;
-    private Timestamp ndate_time;
+    private String ndate_time;
     private String n_person;
     private String n_topic;
     private String notice;
@@ -19,7 +20,7 @@ public class Notice {
     public Notice() {
     }
 
-    public Notice(Timestamp ndate_time, String n_person, String n_topic, String notice, Integer n_level) {
+    public Notice(String ndate_time, String n_person, String n_topic, String notice, Integer n_level) {
         this.ndate_time = ndate_time;
         this.n_person = n_person;
         this.n_topic = n_topic;
@@ -27,7 +28,7 @@ public class Notice {
         this.n_level = n_level;
     }
 
-    public Notice(Long nid, Timestamp ndate_time, String n_person, String n_topic, String notice, Integer n_level) {
+    public Notice(Long nid, String ndate_time, String n_person, String n_topic, String notice, Integer n_level) {
         this.nid = nid;
         this.ndate_time = ndate_time;
         this.n_person = n_person;
@@ -44,11 +45,11 @@ public class Notice {
         this.nid = nid;
     }
 
-    public Timestamp getNdate_time() {
+    public String getNdate_time() {
         return ndate_time;
     }
 
-    public void setNdate_time(Timestamp ndate_time) {
+    public void setNdate_time(String ndate_time) {
         this.ndate_time = ndate_time;
     }
 

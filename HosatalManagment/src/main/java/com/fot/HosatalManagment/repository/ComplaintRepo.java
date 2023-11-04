@@ -24,4 +24,6 @@ public interface ComplaintRepo extends CrudRepository<Complaint,Integer> {
 
     @Query(value = "CALL GetComplaintDetails(:complaintId)", nativeQuery = true)
     Optional<Complaint> getComplaintDetails(@Param("complaintId") int complaintId);
+
+
 }

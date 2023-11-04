@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
@@ -117,54 +118,66 @@ public class AddComplainDetails extends AppCompatActivity implements AdapterView
             public void onClick(View view) {
                 changeInProgress(true);
 
-                BitmapDrawable drawable = (BitmapDrawable) assetCameraImageView.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-                // Create a Calendar instance to represent the current date and time
-                Calendar calendar = Calendar.getInstance();
-
-                // Create a SimpleDateFormat to format the date as desired
+// Create a SimpleDateFormat to format the date as desired
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String currentDate = dateFormat.format(new Date());
 
-                // Format the current date and time to a string
-                String currentDate = dateFormat.format(calendar.getTime());
+                String complaintText = complaintxt.getText().toString();
+                String subWardenId = subWardenID.getText().toString();
+                String wardenId = wardenID.getText().toString();
 
-                Complaint complaint=new Complaint();
-                complaint.setAsset_id(assetId.getText().toString());
-                complaint.setComplaint(complaintxt.getText().toString());
-                complaint.setImage(base64Image);
-                complaint.setSub_warden_id(subWardenID.getText().toString());
-                complaint.setWarden_id(wardenID.getText().toString());
-                complaint.setStudent_id(studentID.getText().toString());
-                complaint.setDate_and_time(currentDate);
-                complaint.setStatus("Open");
+                if (TextUtils.isEmpty(complaintText) || TextUtils.isEmpty(subWardenId) || TextUtils.isEmpty(wardenId)) {
+                    Toast.makeText(AddComplainDetails.this, "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                    changeInProgress(false);
+                } else {
+                    AsyncTask.execute(() -> {
+                        // Move image compression to a background thread
+                        BitmapDrawable drawable = (BitmapDrawable) assetCameraImageView.getDrawable();
+                        Bitmap bitmap = drawable.getBitmap();
 
-                if(!(complaintxt.getText().toString().isEmpty() && subWardenID.getText().toString().isEmpty() && wardenID.getText().toString().isEmpty())) {
-                    Login.getStudentApiService().saveComplaint(complaint).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(retrofit2.Call<Void> call, Response<Void> response) {
-                            changeInProgress(false);
-                            Intent intent = new Intent(AddComplainDetails.this, ComplaintFragment.class);
-                            Toast.makeText(AddComplainDetails.this, "Complain is Added!!", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                            finish();
-                        }
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-                        @Override
-                        public void onFailure(retrofit2.Call<Void> call, Throwable t) {
-                            changeInProgress(false);
-                            Toast.makeText(AddComplainDetails.this, "Error Occur!!", Toast.LENGTH_SHORT).show();
-                        }
+                        // Use JPEG format with lower quality (adjust quality as needed, e.g., 10 for high compression)
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+
+                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+                        String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
+                        Complaint complaint = new Complaint();
+                        complaint.setAsset_id(assetId.getText().toString());
+                        complaint.setComplaint(complaintText);
+                        complaint.setImage(base64Image);
+                        complaint.setSub_warden_id(subWardenId);
+                        complaint.setWarden_id(wardenId);
+                        complaint.setStudent_id(studentID.getText().toString());
+                        complaint.setDate_and_time(currentDate);
+                        complaint.setStatus("Open");
+
+                        // Perform network request in the background
+                        Login.getStudentApiService().saveComplaint(complaint).enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(retrofit2.Call<Void> call, Response<Void> response) {
+                                runOnUiThread(() -> {
+                                    changeInProgress(false);
+                                    Intent intent = new Intent(AddComplainDetails.this, ComplaintFragment.class);
+                                    Toast.makeText(AddComplainDetails.this, "Complaint is Added!!", Toast.LENGTH_SHORT).show();
+                                    startActivity(intent);
+                                    finish();
+                                });
+                            }
+
+                            @Override
+                            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                                runOnUiThread(() -> {
+                                    changeInProgress(false);
+                                    Toast.makeText(AddComplainDetails.this, "Error Occurred!!", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                        });
                     });
-
-                }else {
-                    Toast.makeText(AddComplainDetails.this, "Please filled the all the fields!!", Toast.LENGTH_SHORT).show();
                 }
+
 
 
             }
