@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All about Wardens</title>
+    <style>
+        /* Add your CSS here */
+    </style>
+</head>
+<body>
+<h1>Wardens Data</h1>
+<div id="wardenData"></div>
+
+<script>
+    // URL of your server-side script
+    const url = 'https://example.com/getWardenData';
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const div = document.getElementById('wardenData');
+            const table = document.createElement('table');
+
+            // Create table headers
+            const thead = document.createElement('thead');
+            const headers = Object.keys(data[0]);
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                thead.appendChild(th);
+            });
+            table.appendChild(thead);
+
+            // Create table rows
+            const tbody = document.createElement('tbody');
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                headers.forEach(header => {
+                    const td = document.createElement('td');
+                    td.textContent = row[header];
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            div.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>

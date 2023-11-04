@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All about Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        #studentData {
+            max-width: 100%;
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px ;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .edit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>All about Students</h1>
+<div id="studentData"></div>
+
+<script>
+    // URL of your server-side script
+    const url = 'http://192.168.132.60:8080/student/viewallstudent';
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const div = document.getElementById('studentData');
+            const table = document.createElement('table');
+
+            // Create table headers
+            const thead = document.createElement('thead');
+            const headers = Object.keys(data[0]);
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                thead.appendChild(th);
+            });
+            thead.appendChild(document.createElement('th')); // Empty cell for the "Edit" button
+            table.appendChild(thead);
+
+            // Create table rows
+            const tbody = document.createElement('tbody');
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                headers.forEach(header => {
+                    const td = document.createElement('td');
+                    td.textContent = row[header];
+                    tr.appendChild(td);
+                });
+
+                // Create an "Edit" button for each row with the respective ID
+                const editButton = document.createElement('a');
+                editButton.textContent = 'Edit';
+                editButton.className = 'edit-button';
+                editButton.href = `editS.html?id=${row.id}`; // Link to the "editS.html" page with the student ID as a query parameter
+                tr.appendChild(editButton);
+
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            div.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>

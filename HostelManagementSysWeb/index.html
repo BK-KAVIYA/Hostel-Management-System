@@ -7,6 +7,7 @@
     <!-- Include Bootstrap CSS replace this URL with the local Bootstrap version -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>FOT</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* Apply the blur effect to the background only */
         .background {
@@ -38,7 +39,16 @@
     </style>
 </head>
 <body>
-    <!-- Background with blur effect -->
+<div id="toast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000" data-bs-autohide="true" style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 50%;">
+    <div class="d-flex">
+        <div class="toast-body">
+            <!-- Message will go here -->
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
+<!-- Background with blur effect -->
     <div class="background"></div>
 
     <div class="container mt-5">
@@ -49,7 +59,7 @@
                         <h1 class="text-center">Login</h1>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="loginForm">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -59,7 +69,7 @@
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary" onclick="validateAndSubmitForm();">Login</button>
                             </div>
                         </form>
                     </div>
@@ -71,4 +81,66 @@
     <!-- Include Bootstrap JS and Popper.js (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<script>
+    function validateAndSubmitForm() {
+        event.preventDefault();
+
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        // Validate form data
+        if (username === '' || password === '') {
+            showToast('Please fill in all fields.', false);  // Show validation message
+            return;
+        }
+
+        var credentials = btoa(username + ':' + password);
+
+        // Send Basic Auth API request
+        $.ajax({
+            type: 'GET',
+            url: 'http://192.168.132.60:8080/student/login', // your API endpoint
+            headers: {
+                'Authorization': 'Basic ' + credentials
+            },
+            success: function (response) {
+                console.log('Login successful:', response);
+                showToast('Login successful!', true);  // Show server response message
+                // Redirect to another page or update the UI
+                var firstChar = username.charAt(0).toLowerCase();
+                if (firstChar === 'w') {
+                    window.location.href = 'pages/wdnDashboard.html';
+                } else if (firstChar === 's') {
+                    window.location.href = 'pages/subWdnDashboard.html';
+                } else if (firstChar === 'd') {
+                    window.location.href = 'pages/deanDashboard.html';
+                } else {
+                    showToast('Invalid user type.', false);
+                }
+            },
+            error: function (error) {
+                console.log('Login error:', error);
+                // Show a user-friendly error message
+                if (error.status === 401) {
+                    alert('Invalid username or password.');
+                } else {
+                    alert('An error occurred. Please try again later.');
+                }
+            }
+        });
+    }
+    function showToast(message, isSuccess) {
+        var toastEl = document.getElementById('toast');
+        var toast = new bootstrap.Toast(toastEl);
+        toastEl.querySelector('.toast-body').innerText = message;
+        if (isSuccess) {
+            toastEl.classList.add('bg-primary');
+            toastEl.classList.remove('bg-danger');
+        } else {
+            toastEl.classList.add('bg-danger');
+            toastEl.classList.remove('bg-primary');
+        }
+        toast.show();
+    }
+</script>
 </html>
