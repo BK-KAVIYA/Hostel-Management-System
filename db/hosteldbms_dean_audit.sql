@@ -18,36 +18,32 @@ USE `hosteldbms`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `student`
+-- Table structure for table `dean_audit`
 --
 
-DROP TABLE IF EXISTS `student`;
+DROP TABLE IF EXISTS `dean_audit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `student` (
-  `st_id` varchar(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address_line1` varchar(255) NOT NULL,
-  `address_line2` varchar(255) DEFAULT NULL,
-  `city` varchar(60) NOT NULL,
-  `nic` varchar(15) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `mobile_no` varchar(15) NOT NULL,
-  `gender` varchar(12) NOT NULL,
-  `level` int NOT NULL,
-  `room_id` int NOT NULL,
-  PRIMARY KEY (`st_id`),
-  KEY `room_id` (`room_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `dean_audit` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `table_name` varchar(255) DEFAULT NULL,
+  `action` varchar(10) DEFAULT NULL,
+  `dean_id` varchar(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `student`
+-- Dumping data for table `dean_audit`
 --
 
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+LOCK TABLES `dean_audit` WRITE;
+/*!40000 ALTER TABLE `dean_audit` DISABLE KEYS */;
+INSERT INTO `dean_audit` VALUES (1,'dean','DELETE','DEAN002','Dr.Thissa','2023-10-28 16:35:19','root@localhost'),(2,'dean','DELETE','DEAN001','Dr.Thissa','2023-10-28 16:40:06','root@localhost'),(3,'dean','INSERT','DEAN002','Dr.Subhash','2023-10-28 16:44:50','root@localhost'),(4,'dean','DELETE','DEAN002','Dr.Subhash','2023-10-28 16:47:25','root@localhost'),(5,'dean','DELETE','DEAN002','Dr.Subhash','2023-10-28 16:47:25','root@localhost'),(6,'dean','INSERT','DEAN001','Dr.Subhash','2023-10-28 16:47:50','root@localhost'),(7,'dean','UPDATE','DEAN001','Updated Name','2023-10-28 16:48:17','root@localhost');
+/*!40000 ALTER TABLE `dean_audit` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
