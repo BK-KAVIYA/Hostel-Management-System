@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports</title>
+    <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        /* Add your custom styles for the dashboard here */
+        .container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .navbar {
+            background-color: #3498db;
+            padding: 15px 0;
+            border-radius: 0;
+        }
+
+        .navbar a.navbar-brand {
+            color: #ff5733;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s; /* Add a smooth transition effect */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #3498db;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff5733; /* Change the text color on hover */
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
+    <div>
+        <a class="navbar-brand" href="../deanDashboard.html">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="./report.html">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./notice.html">Notice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./profile.html">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+<div class="container">
+    <!-- User Management Widgets -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Assets</h5>
+                    <p class="card-text">Reports</p>
+                    <a href="assetsReport.html" class="btn btn-primary" target="_blank">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Attendance</h5>
+                    <p class="card-text">Reports</p>
+                    <a href="attendanceReport.html" class="btn btn-primary" target="_blank">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

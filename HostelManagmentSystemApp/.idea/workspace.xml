@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <device id="_device_class_phone" />
+        <target>android-UpsideDownCakePrivacySandbox</target>
+      </config>
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -16,11 +24,27 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="resourceFile" />
+        <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_setting_fragment.xml" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2ViMktpjjDH9s4Tlp6ZqtyOSKCC" />
   <component name="ProjectViewState">
@@ -33,9 +57,40 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/dilsh/Downloads/login_rest_api_authentication/main"
+    "last_directory_selection": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/drawable",
+    "last_opened_file_path": "F:/ADBMS Project/Hostel-Managment-System/HosatalManagment/HostelManagmentSystemApp/app/src/main/res/drawable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\drawable" />
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\layout" />
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\res\menu" />
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\java\com\example\hostelmanagmentsystemapp\Complaint" />
+      <recent name="F:\ADBMS Project\Hostel-Managment-System\HosatalManagment\HostelManagmentSystemApp\app\src\main\java\com\example\hostelmanagmentsystemapp" />
+    </key>
+    <key name="android.template.1277228743">
+      <recent name="com.example.hostelmanagmentsystemapp" />
+      <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment" />
+    </key>
+    <key name="android.template.856072020">
+      <recent name="com.example.hostelmanagmentsystemapp.AttendanceManagment" />
+    </key>
+    <key name="android.template.-800454186">
+      <recent name="com.example.hostelmanagmentsystemapp" />
+    </key>
+    <key name="android.template.444001912">
+      <recent name="com.example.hostelmanagmentsystemapp" />
+    </key>
+    <key name="android.template.-1181706100">
+      <recent name="com.example.hostelmanagmentsystemapp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.hostelmanagmentsystemapp.utill" />
+      <recent name="com.example.hostelmanagmentsystemapp.ComplaintManagment.AttendanceManagment" />
+      <recent name="com.example.hostelmanagmentsystemapp.securityofficer" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="HostelManagmentSystemApp.app.main" />
@@ -106,5 +161,31 @@
       <updated>1695314594087</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/hostelmanagmentsystemapp/securityofficer/SecurityOfficerHomeFragment.java</url>
+          <line>49</line>
+          <properties method="onClick">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

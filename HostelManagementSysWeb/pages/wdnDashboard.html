@@ -1,77 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Warden Dashboard</title>
     <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         /* Add your custom styles for the dashboard here */
         .container {
-            padding: 50px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
         }
+
+        .navbar {
+            background-color: #3498db;
+            padding: 15px 0;
+            border-radius: 0;
+        }
+
+        .navbar a.navbar-brand {
+            color: #ff5733;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s; /* Add a smooth transition effect */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #3498db;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff5733; /* Change the text color on hover */
+        }
+
         .card {
             margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 18px;
+            color: #777;
+        }
+
+        .card-body {
+            padding: 20px;
         }
     </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Dashboard</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Widget 1</h5>
-                        <p class="card-text">Content for Widget 1 goes here.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Widget 2</h5>
-                        <p class="card-text">Content for Widget 2 goes here.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Widget 3</h5>
-                        <p class="card-text">Content for Widget 3 goes here.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
+    <div>
+        <a class="navbar-brand" href="wdnDashboard.html">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-
-    <!-- Include Bootstrap JS and Popper.js (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="./warden/report.html">Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./warden/notice.html">Notice</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./warden/profile.html">Profile</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 </body>
-</html>

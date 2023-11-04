@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch room numbers from the Spring Boot API
     function fetchRoomNumbers() {
-        fetch('http://192.168.8.101:8080/rooms/all')
+
+        fetch('http://127.0.0.1:8080/rooms/all')
+
             .then(response => response.json())
             .then(data => {
                 displayRoomNumbers(data);

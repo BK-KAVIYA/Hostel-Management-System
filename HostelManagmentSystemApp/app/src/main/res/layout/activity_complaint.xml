@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComplaintManagment.ComplaintFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/booking_title"
+        android:orientation="horizontal"
+        android:background="@color/purple_500">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/bangers"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Your Current Complaint"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hmbtn"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:text="Add Complaint"
+            android:backgroundTint="@color/zxing_viewfinder_laser" />
+    </RelativeLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/booking_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/booking_title"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:clipToPadding="true"
+        android:layout_marginBottom="8dp"/>
+
+    <ProgressBar
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_list"
+        android:layout_below="@+id/booking_title"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/progress_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/progress_bar_list"
+        android:layout_below="@+id/booking_title"
+        android:layout_centerHorizontal="true"
+        android:text="Loading..." />
+
+</RelativeLayout>

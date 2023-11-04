@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textntperson"
+        android:text="Notice Person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/textNtTitle"
+        android:text="Notice Title"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+
+
+        <TextView
+            android:id="@+id/txtNotice"
+            android:text="Spreading Chicken Pox Disease at hostel | I came to know that chickenpox disease is spreading among 2nd-year students at the hostel. If you are having the virus or similar symptoms, please immediately go home. Your CA exams will be scheduled separately for you."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/textdateAndTime"
+            android:text="2023-10-28 12.20.25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="15dp"
+            android:textSize="15sp"/>
+
+</LinearLayout>
