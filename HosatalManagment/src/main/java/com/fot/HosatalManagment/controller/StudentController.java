@@ -25,9 +25,9 @@ public class StudentController {
     private StudentRepo studentRepo;
 
     @PostMapping("/register")
-    public ResponseEntity<String> saveStudent(Student student) {
-        studentServiceImp.registerStudent(student);
-        return ResponseEntity.ok("Student saved successfully");
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+       return ResponseEntity.ok(studentServiceImp.registerStudent(student));
+      //  return ResponseEntity.ok("Student saved successfully");
     }
 
     @GetMapping("/viewallstudent")

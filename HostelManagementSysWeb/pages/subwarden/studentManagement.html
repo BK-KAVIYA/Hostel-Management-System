@@ -62,15 +62,140 @@
             font-size: 14px;
             cursor: pointer;
         }
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Add Student Button Styles */
+        .add-button {
+            position: fixed;
+            top: 20px; /* Adjust the top distance from the top edge of the page */
+            right: 20px; /* Adjust the right distance from the right edge of the page */
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .add-button i {
+            margin-right: 5px; /* Adjust the spacing between the icon and text */
+        }
+
+        .add-button:hover {
+            background-color: #45a049; /* Change color on hover (optional) */
+        }
+        /* Styles for the custom confirmation dialog */
+        .custom-confirm {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .custom-confirm-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        #yesButton, #noButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }/* Styles for the custom alert dialog */
+        .custom-alert {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .custom-alert-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        #okButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 <h1>All about Students</h1>
 <div id="studentData"></div>
-
+<!-- New code for "Add Student" button -->
+<div id="addStudentButton">
+    <a href="addStudent.html" class="add-button">
+        <i class="fa fa-plus"></i> Add Student
+    </a>
+</div>
+<div class="custom-confirm" id="confirmationDialog">
+    <div class="custom-confirm-content">
+        <p>Are you sure you want to delete this student?</p>
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
+    </div>
+</div>
+<div class="custom-alert" id="alertDialog">
+    <div class="custom-alert-content">
+        <p id="alertMessage"></p>
+        <button id="okButton">OK</button>
+    </div>
+</div>
 <script>
     // URL of your server-side script
-    const url = 'http://192.168.132.60:8080/student/viewallstudent';
+    const url = 'http://192.168.8.104:8080/student/viewallstudent';
 
     fetch(url)
         .then(response => response.json())
@@ -103,8 +228,36 @@
                 const editButton = document.createElement('a');
                 editButton.textContent = 'Edit';
                 editButton.className = 'edit-button';
-                editButton.href = `editS.html?id=${row.id}`; // Link to the "editS.html" page with the student ID as a query parameter
+                editButton.href = `editS.html?id=${row.st_id}`; // Link to the "editS.html" page with the student ID as a query parameter
                 tr.appendChild(editButton);
+
+                // Create a "Delete" button for each row with the respective ID
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => {
+                    const confirmationDialog = document.getElementById('confirmationDialog');
+                    const yesButton = document.getElementById('yesButton');
+                    const noButton = document.getElementById('noButton');
+
+                    // Show the custom confirmation dialog
+                    confirmationDialog.style.display = 'block';
+
+                    // Add event listeners for "Yes" and "No" buttons
+                    yesButton.addEventListener('click', () => {
+                        // Perform the delete operation here
+                        deleteStudent(row.st_id);
+                        // Hide the confirmation dialog
+                        confirmationDialog.style.display = 'none';
+                    });
+
+                    noButton.addEventListener('click', () => {
+                        // Hide the confirmation dialog without deleting
+                        confirmationDialog.style.display = 'none';
+                    });
+                });
+                tr.appendChild(deleteButton);
+
 
                 tbody.appendChild(tr);
             });
@@ -113,6 +266,45 @@
             div.appendChild(table);
         })
         .catch(error => console.error('Error:', error));
+
+    function deleteStudent(studentId) {
+        const deleteUrl = `http://192.168.8.104:8080/student/delete/${studentId}`;
+
+        fetch(deleteUrl, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    showAlert('Student data Deleted !');
+                    window.location.href = 'studentManagement.html';
+                } else {
+                    throw new Error('Failed to delete student data');
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                showAlert('Failed to delete student data: ' + error.message);
+            });
+    }
+
+    function showAlert(message) {
+        const alertDialog = document.getElementById('alertDialog');
+        const alertMessage = document.getElementById('alertMessage');
+        const okButton = document.getElementById('okButton');
+
+        // Set the alert message
+        alertMessage.textContent = message;
+
+        // Show the custom alert dialog
+        alertDialog.style.display = 'block';
+
+        // Add an event listener to the "OK" button
+        okButton.addEventListener('click', () => {
+            // Hide the alert dialog
+            alertDialog.style.display = 'none';
+        });
+    }
+
 </script>
 </body>
 </html>

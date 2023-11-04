@@ -43,7 +43,27 @@
 
         .navbar-nav .nav-link:hover {
             color: #ff5733; /* Change the text color on hover */
+        }    .logOut-button {
+                 position: fixed;
+                 top: 20px; /* Adjust the top distance from the top edge of the page */
+                 right: 20px; /* Adjust the right distance from the right edge of the page */
+                 padding: 10px 20px;
+                 background-color: red;
+                 color: #fff;
+                 border: none;
+                 border-radius: 5px;
+                 text-decoration: none;
+                 font-size: 16px;
+                 cursor: pointer;
+             }
+        .logOut-button i {
+            margin-right: 5px; /* Adjust the spacing between the icon and text */
         }
+
+        .logOut-button:hover {
+            background-color: #45a049; /* Change color on hover (optional) */
+        }
+
     </style>
 </head>
 
@@ -75,6 +95,11 @@
         </ul>
     </div>
 </nav>
+<div id="logOut">
+    <a href="../../index.html" class="logOut-button">
+        <i class="fa fa-plus"></i> Logout
+    </a>
+</div>
 
 <div class="container">
     <!-- User Management Widgets -->
@@ -97,7 +122,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Complaint</h5>
+                    <p class="card-text">Reports</p>
+                    <a href="complaint.html" class="btn btn-primary" target="_blank">View</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 </html>
+

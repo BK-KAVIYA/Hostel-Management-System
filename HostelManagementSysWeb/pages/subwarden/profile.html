@@ -44,6 +44,28 @@
     .navbar-nav .nav-link:hover {
       color: #ff5733; /* Change the text color on hover */
     }
+
+
+    .logOut-button {
+      position: fixed;
+      top: 20px; /* Adjust the top distance from the top edge of the page */
+      right: 20px; /* Adjust the right distance from the right edge of the page */
+      padding: 10px 20px;
+      background-color: red;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .logOut-button i {
+      margin-right: 5px; /* Adjust the spacing between the icon and text */
+    }
+
+    .logOut-button:hover {
+      background-color: #45a049; /* Change color on hover (optional) */
+    }
   </style>
 </head>
 
@@ -75,7 +97,6 @@
     </ul>
   </div>
 </nav>
-
 <div class="container">
   <h1>Profile</h1>
   <div id="profileData"></div>
@@ -122,6 +143,142 @@
 
 <!-- Include Bootstrap JS and Popper.js (optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <img id="profile-image" class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+        <span id="name_input" class="font-weight-bold"></span>
+        <span id="email_input" class="text-black-50"></span>
+        <span> </span>
+      </div>
+    </div>
+    <div class="col-md-5 border-right">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Profile Settings</h4>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label class="labels">Name</label>
+            <input id="name" type="text" class="form-control" placeholder="Name" >
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <label class="labels">Address Line 1</label>
+            <input id="address_line1" type="text" class="form-control" placeholder="Address Line 1" >
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Address Line 2</label>
+            <input id="address_line2" type="text" class="form-control" placeholder="Address Line 2" >
+          </div>
+          <div class="col-md-12">
+            <label class="labels">City</label>
+            <input id="city" type="text" class="form-control" placeholder="City" >
+          </div>
+          <div class="col-md-12">
+            <label class="labels">NIC</label>
+            <input id="nic" type="text" class="form-control" placeholder="NIC" disabled>
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Email ID</label>
+            <input id="email" type="text" class="form-control" placeholder="Email ID" disabled>
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Mobile No</label>
+            <input id="mobile_no" type="text" class="form-control" placeholder="Mobile No">
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Gender</label>
+            <input id="gender" type="text" class="form-control" placeholder="Gender" disabled>
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Date of Employment</label>
+            <input id="date_of_employment" type="text" class="form-control" placeholder="Date of Employment">
+          </div>
+        </div>
+        <div class="mt-5 text-center">
+          <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div id="logOut">
+  <a href="../../index.html" class="logOut-button">
+    <i class="fa fa-plus"></i> Logout
+  </a>
+</div>
+<!-- Include jQuery (required for AJAX) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var userId = localStorage.getItem('user_id')
+
+  fetch(`http://192.168.8.102:8080/subwarden/getById/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+              // Update the input fields with the fetched data;
+              document.getElementById('name_input').textContent = data.name;
+              document.getElementById('email_input').textContent = data.email;
+              document.getElementById('name').value = data.name;
+              document.getElementById('address_line1').value = data.addressLine1;
+              document.getElementById('address_line2').value = data.addressLine2;
+              document.getElementById('city').value = data.city;
+              document.getElementById('nic').value = data.nic;
+              document.getElementById('email').value = data.email;
+              document.getElementById('mobile_no').value = data.mobileNo;
+              document.getElementById('date_of_employment').value = data.dateOfEmployment;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+    // Handle the form submission
+    document.querySelector('.profile-button').addEventListener('click', function() {
+      // Get the values from the input fields
+      var name = document.getElementById('name').value;
+      var address_line1 = document.getElementById('address_line1').value;
+      var address_line2 = document.getElementById('address_line2').value;
+      var city = document.getElementById('city').value;
+      var nic = document.getElementById('nic').value;
+      var email = document.getElementById('email').value;
+      var mobile_no = document.getElementById('mobile_no').value;
+      var date_of_employment = document.getElementById('date_of_employment').value;
+
+      // Make an AJAX request to update the user profile on the server
+      fetch(`http://192.168.8.102:8080/subwarden/update/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          addressLine1: address_line1,
+          addressLine2: address_line2,
+          city: city,
+          mobileNo: mobile_no,
+          dateOfEmployment: date_of_employment,
+        }),
+      })
+              .then(response => {
+                if (response.status === 200) {
+                  alert('Your Account was updated Successfully !');
+                  window.location.href = 'profile.html';
+                } else {
+                  throw new Error('Failed to update your profile');
+                }
+              })
+              .catch(error => {
+                console.error('An error occurred:', error);
+                alert('Failed to update your data: ' + error.message);
+              });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
 </html>
