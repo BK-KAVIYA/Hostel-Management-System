@@ -16,21 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `hostel`
+-- Dumping events for database 'hosteldbms'
 --
 
-DROP TABLE IF EXISTS `hostel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `hostel` (
-  `h_id` int NOT NULL AUTO_INCREMENT,
-  `hostel_name` varchar(255) NOT NULL,
-  `capacity` int NOT NULL,
-  `sub_warden_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`h_id`),
-  KEY `sub_warden_id` (`sub_warden_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping routines for database 'hosteldbms'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -41,4 +32,4 @@ CREATE TABLE `hostel` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-04 11:29:11
+-- Dump completed on 2023-10-04 11:29:14
