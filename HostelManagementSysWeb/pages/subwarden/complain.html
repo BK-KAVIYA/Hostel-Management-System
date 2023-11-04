@@ -43,6 +43,25 @@
 
     .navbar-nav .nav-link:hover {
       color: #ff5733; /* Change the text color on hover */
+    }    .logOut-button {
+           position: fixed;
+           top: 20px; /* Adjust the top distance from the top edge of the page */
+           right: 20px; /* Adjust the right distance from the right edge of the page */
+           padding: 10px 20px;
+           background-color: red;
+           color: #fff;
+           border: none;
+           border-radius: 5px;
+           text-decoration: none;
+           font-size: 16px;
+           cursor: pointer;
+         }
+    .logOut-button i {
+      margin-right: 5px; /* Adjust the spacing between the icon and text */
+    }
+
+    .logOut-button:hover {
+      background-color: #45a049; /* Change color on hover (optional) */
     }
   </style>
 </head>
@@ -76,6 +95,11 @@
   </div>
 </nav>
 
+<div id="logOut">
+  <a href="../../index.html" class="logOut-button">
+    <i class="fa fa-plus"></i> Logout
+  </a>
+</div>
 <div class="container">
   <!-- Data will be dynamically loaded here -->
 </div>
