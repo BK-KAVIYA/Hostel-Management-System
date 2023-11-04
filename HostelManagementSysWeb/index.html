@@ -87,6 +87,7 @@
 
         var username = $('#username').val();
         var password = $('#password').val();
+        localStorage.setItem('user_id', username);
 
         // Validate form data
         if (username === '' || password === '') {
@@ -99,7 +100,7 @@
         // Send Basic Auth API request
         $.ajax({
             type: 'GET',
-            url: 'http://192.168.132.60:8080/student/login', // your API endpoint
+            url: 'http://192.168.8.102:8080/student/login', // your API endpoint
             headers: {
                 'Authorization': 'Basic ' + credentials
             },

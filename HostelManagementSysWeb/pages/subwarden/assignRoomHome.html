@@ -68,6 +68,27 @@
         .card-body {
             padding: 20px;
         }
+        .logOut-button {
+            position: fixed;
+            top: 20px; /* Adjust the top distance from the top edge of the page */
+            right: 20px; /* Adjust the right distance from the right edge of the page */
+            padding: 10px 20px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .logOut-button i {
+            margin-right: 5px; /* Adjust the spacing between the icon and text */
+        }
+
+        .logOut-button:hover {
+            background-color: #45a049; /* Change color on hover (optional) */
+        }
+
     </style>
 
 </head>
@@ -100,6 +121,11 @@
         </ul>
     </div>
 </nav>
+<div id="logOut">
+    <a href="../../index.html" class="logOut-button">
+        <i class=""></i> Logout
+    </a>
+</div>
 <h1>Student Room Allocation</h1>
 <div class="room-categories" id="room-categories-container">
     <!-- Room categories and buttons will be generated here -->
