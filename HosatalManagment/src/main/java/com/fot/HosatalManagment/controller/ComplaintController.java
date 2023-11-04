@@ -44,8 +44,9 @@ public class ComplaintController {
     }
 
     @PostMapping("/save")
-    public void saveComplaint(@RequestBody Complaint complaint) {
+    public ResponseEntity<String> saveComplaint(@RequestBody Complaint complaint) {
          complaintServiceIMP.saveComplaint(complaint);
+        return ResponseEntity.ok("Complaint created successfully");
     }
 
 
@@ -72,6 +73,20 @@ public class ComplaintController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<Iterable<Complaint>> getComplaintImage() {
+        Iterable<Complaint> complaint = complaintServiceIMP.getAllComplained();
+
+//            byte[] imageBytes = complaint.get.getImage();
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.valueOf("image/png")); // Set the appropriate content type based on your image type (e.g., IMAGE_JPEG, IMAGE_PNG, etc.)
+//            headers.setContentLength(imageBytes.length);
+           return  ResponseEntity.ok(complaint);
+//        } else {
+    //        return ResponseEntity.notFound().build();
+       // }
     }
 
 }

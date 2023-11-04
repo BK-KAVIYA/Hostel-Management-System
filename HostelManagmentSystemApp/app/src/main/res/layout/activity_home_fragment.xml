@@ -7,6 +7,7 @@
     tools:context=".HomeFragment">
 
     <LinearLayout
+        android:id="@+id/mainsection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -91,6 +92,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainsection"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="-2dp"
+        android:src="@drawable/hosteldash" />
 
 
 </RelativeLayout>

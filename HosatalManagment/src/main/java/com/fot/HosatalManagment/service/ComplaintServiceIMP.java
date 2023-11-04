@@ -60,4 +60,7 @@ public class ComplaintServiceIMP implements ComplaintService{
         return complaintRepo.getComplaintDetails(complaintId);
     }
 
+    public Iterable<Complaint> getAllComplained(){
+        return complaintRepo.findAll();
+    }
 }

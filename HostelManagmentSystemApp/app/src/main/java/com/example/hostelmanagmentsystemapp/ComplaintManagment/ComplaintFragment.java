@@ -56,7 +56,7 @@ public class ComplaintFragment extends AppCompatActivity {
         Addcomplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ComplaintFragment.this, AddComplainDetails.class);
+                Intent intent = new Intent(ComplaintFragment.this, AddComplain.class);
                 startActivity(intent);
                 finish();
             }
@@ -80,32 +80,46 @@ public class ComplaintFragment extends AppCompatActivity {
         Login.getStudentApiService().getComplaintByStudent(UserID).enqueue(new Callback<List<Complaint>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Complaint>> call, Response<List<Complaint>> response) {
-
                 if (response.isSuccessful()) {
                     List<Complaint> complaints = response.body();
-                    changeInProgress(false);
-
                     if (complaints != null) {
+                        // Create a new list with mapped Complaint objects
+                        List<Complaint> mappedComplaints = new ArrayList<>();
                         for (Complaint complaint : complaints) {
-                            complaintList.add(new Complaint(complaint.getAsset_id(),complaint.getComplaint(),complaint.getImage(),complaint.getDate_and_time(),complaint.getStatus()));
+                            mappedComplaints.add(new Complaint(
+                                    complaint.getAsset_id(),
+                                    complaint.getComplaint(),
+                                    complaint.getImage(),
+                                    complaint.getDate_and_time(),
+                                    complaint.getStatus()
+                            ));
                             System.out.println(complaint.getAsset_id());
                         }
-                        complainManager = new ComplainManager(getApplicationContext(), complaintList);
-                        recyclerView.setAdapter(complainManager);
+
+                        // Set up your RecyclerView and adapter
+                        setupRecyclerView(mappedComplaints);
                     } else {
-                        System.out.println("er1");
+                        System.out.println("No complaints available.");
                     }
                 } else {
-                    System.out.println("er2");
+                    System.out.println("Error occurred with the request.");
                 }
+                changeInProgress(false);
+            }
 
+            private void setupRecyclerView(List<Complaint> mappedComplaints) {
+                complainManager = new ComplainManager(getApplicationContext(), mappedComplaints);
+                recyclerView.setAdapter(complainManager);
             }
 
             @Override
             public void onFailure(retrofit2.Call<List<Complaint>> call, Throwable t) {
-                System.out.println("Error occur"+t.getMessage());
+                System.out.println("Error occurred: " + t.getMessage());
+                changeInProgress(false);
             }
         });
+
+
 
 //        complaintList.add(new Complaint("101/TP/006","Fan is not working","image","dateTime","Open"));
 //        complaintList.add(new Complaint("101/TP/006","Fan is not working","image","dateTime","Open"));

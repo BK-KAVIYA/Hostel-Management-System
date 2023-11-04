@@ -62,89 +62,15 @@
             font-size: 14px;
             cursor: pointer;
         }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        /* Clearfix to handle floated buttons */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
     </style>
 </head>
 <body>
 <h1>All about Students</h1>
 <div id="studentData"></div>
 
-<!-- Modal for editing student data -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Edit Student Data</h2>
-        <form id="editForm">
-            <input type="hidden" id="editStudentId">
-            <label for="editFirstName">First Name:</label>
-            <input type="text" id="editFirstName">
-            <br>
-            <label for="editLastName">Last Name:</label>
-            <input type="text" id="editLastName">
-            <br>
-            <label for="editAge">Age:</label>
-            <input type="text" id="editAge">
-            <br>
-            <!-- Add input fields for other attributes as needed -->
-            <br>
-            <button onclick="saveStudentChanges()">Save</button>
-        </form>
-    </div>
-</div>
-
-
 <script>
     // URL of your server-side script
     const url = 'http://192.168.132.60:8080/student/viewallstudent';
-
-    // Open the modal for editing student data
-    function openModal(studentId) {
-        const modal = document.getElementById('editModal');
-        modal.style.display = 'block';
-
-        // Populate the form fields with the data for the selected student
-        // You can fetch the data from the server and fill the form fields here
-    }
-
-    // Close the modal for editing student data
-    function closeModal() {
-        const modal = document.getElementById('editModal');
-        modal.style.display = 'none';
-    }
 
     fetch(url)
         .then(response => response.json())
@@ -174,10 +100,10 @@
                 });
 
                 // Create an "Edit" button for each row with the respective ID
-                const editButton = document.createElement('button');
+                const editButton = document.createElement('a');
                 editButton.textContent = 'Edit';
                 editButton.className = 'edit-button';
-                editButton.onclick = () => openModal(row.id); // Pass the student ID to the openModal function
+                editButton.href = `editS.html?id=${row.id}`; // Link to the "editS.html" page with the student ID as a query parameter
                 tr.appendChild(editButton);
 
                 tbody.appendChild(tr);
