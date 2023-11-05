@@ -1,5 +1,6 @@
 package com.fot.HosatalManagment.service;
 
+import com.fot.HosatalManagment.entity.Attendance;
 import com.fot.HosatalManagment.entity.Notice;
 import com.fot.HosatalManagment.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class NoticeService {
 
     public List<Notice> getAllNotices() {
         return noticeRepository.findAll();
+    }
+
+    public Notice saveNotice(Notice notice) {
+        return noticeRepository.save(notice);
     }
 
     @Autowired

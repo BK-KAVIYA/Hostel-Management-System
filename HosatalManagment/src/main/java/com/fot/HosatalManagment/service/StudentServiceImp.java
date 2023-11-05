@@ -16,13 +16,10 @@ public class StudentServiceImp implements StudentService{
 
     @Autowired
     private StudentRepo studentRepo;
-
     private final EntityManager entityManager;
-
     public StudentServiceImp(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
     @Override
     public Iterable<Student> getAllStudent() {
         return  studentRepo.findAll();

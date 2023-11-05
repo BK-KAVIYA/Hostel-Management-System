@@ -21,8 +21,5 @@ public interface StudentRepo extends CrudRepository<Student,String> {
     @Procedure(name = "GetStudentsByRoomNumber")
     List<Student> GetStudentsByRoomNumber(int roomNumber);
 
-//        @Query(value = "CALL GetStudentDetails(:studentID)", nativeQuery = true)
-//        Student getStudentDetails(@Param("studentID") String studentID);
-
 
 }

@@ -1,5 +1,6 @@
 package com.fot.HosatalManagment.controller;
 
+import com.fot.HosatalManagment.entity.Asset;
 import com.fot.HosatalManagment.entity.Notice;
 import com.fot.HosatalManagment.entity.Student;
 import com.fot.HosatalManagment.repository.NoticeRepository;
@@ -41,6 +42,12 @@ public class NoticeController {
         return noticeService.callGetNoticeDetails(noticeId);
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Notice> addNotice(@RequestBody Notice notice) {
+        Notice savenotice = noticeService.saveNotice(notice);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savenotice);
+    }
+
     @PutMapping("/update/{nid}")
     public ResponseEntity<String> updateStudent(@PathVariable long nid, @RequestBody Notice updatedNotice) {
         // Check if the student with the given nid exists
@@ -56,6 +63,18 @@ public class NoticeController {
             // Update other fields as needed
             noticeRepository.save(existingNotice);
             return ResponseEntity.ok("Notice updated successfully.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/delete/{nId}")
+    public ResponseEntity<?> deleteStudent(@PathVariable String nId) {
+        // Check if the student with the given stId exists
+        if (noticeRepository.existsById(Long.valueOf(nId))) {
+            // Delete the student
+            noticeRepository.deleteById(Long.valueOf(nId));
+            return ResponseEntity.ok("Student deleted successfully.");
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 public class Student {
     @Id
     private String st_id;
-
     private String name;
     private String address_line1;
     private String address_line2;
@@ -14,7 +13,6 @@ public class Student {
     private String nic;
     private String email;
     private String gender;
-
     private Long mobile_no;
     private int level;
     private int room_id;

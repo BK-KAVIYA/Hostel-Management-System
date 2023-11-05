@@ -66,7 +66,6 @@ public class StudentController {
         return studentServiceImp.getStudentsByRoomNumber(roomNumber);
     }
 
-
     @PutMapping("/updateRoomID")
     public ResponseEntity<String> updateStudentRoomID(
             @RequestParam String studentID,

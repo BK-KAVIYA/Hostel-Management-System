@@ -153,7 +153,7 @@ public class AddAttendanceDetails extends AppCompatActivity {
         String statusText = status.getText().toString();
         String roomidText = roomid.getText().toString();
 
-        if (!studentIDText.isEmpty() && !dateandtimeText.isEmpty() && !officertIDText.isEmpty() && !statusText.isEmpty() && !roomidText.isEmpty()) {
+        if (true) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
