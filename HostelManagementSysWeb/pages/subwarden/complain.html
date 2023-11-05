@@ -117,7 +117,7 @@
   function loadMoreData() {
     $.ajax({
       method: "GET",
-      url: "http://192.168.132.60:8080/complaint/getAll",
+      url: "http://192.168.8.100:8080/complaint/getAll",
       success: function(data) {
         // Assuming data is an array of complaint objects
         data.forEach(complaint => {

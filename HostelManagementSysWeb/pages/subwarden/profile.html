@@ -113,7 +113,7 @@
 
 <script>
   // URL of your server-side script to fetch user data
-  const url = 'http://192.168.132.60:8080/user/profile';
+  const url = 'http://192.168.8.100:8080/user/profile';
 
   // Fetch user data and display it on the page
   $.ajax({
@@ -226,7 +226,7 @@
 <script>
     var userId = localStorage.getItem('user_id')
 
-  fetch(`http://192.168.8.102:8080/subwarden/getById/${userId}`)
+  fetch(`http://192.168.8.100:8080/subwarden/getById/${userId}`)
             .then(response => response.json())
             .then(data => {
               // Update the input fields with the fetched data;
@@ -257,7 +257,7 @@
       var date_of_employment = document.getElementById('date_of_employment').value;
 
       // Make an AJAX request to update the user profile on the server
-      fetch(`http://192.168.8.102:8080/subwarden/update/${userId}`, {
+      fetch(`http://192.168.8.100:8080/subwarden/update/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

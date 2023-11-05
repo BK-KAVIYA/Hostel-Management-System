@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Notice Details</title>
+    <style>
+      body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db;
+            padding: 10px;
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #e7e7e7;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            height: 35px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        input[type="button"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="notice.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <h1>Edit Notice Details</h1>
+    <form action="/update" method="post">
+        <script>
+            $(document).ready(function() {
+                    // Read the query parameters from the URL
+                    var params = new URLSearchParams(window.location.search);
+                    var nid = params.get("nid");
+                    var cudateandtime = params.get("dateandtime");
+                    var person = params.get("person");
+                    var topic = params.get("topic");
+                    var notice = params.get("notice");
+                    var level = params.get("level");
+
+                    
+
+                    // Set the values of the elements on the page
+                    $('#id').val(nid);
+                    $('#datetime').val(cudateandtime);
+                    $('#person').val(person);
+                    $('#topic').val(topic);
+                    $('#notice').val(notice);
+                    $('#level').val(level);
+                });
+
+            
+        </script>
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" value="Your ID Value" readonly>
+        
+        <label for="datetime">Notice Date and Time:</label>
+        <input type="text" id="datetime" name="datetime" value="Notice Date and Time Value" readonly>
+        
+        <label for="person">Person:</label>
+        <input type="text" id="person" name="person" value="Person Value">
+        
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" value="Topic Value">
+        
+        <label for="notice">Notice:</label>
+        <textarea id="notice" name="notice">Notice Value</textarea>
+        
+        <label for="level">Notice Level:</label>
+        <select id="level" name="level">
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+            <option value="4">Level 4</option>
+            <option value="0">All Levels</option>
+        </select>
+        
+        <input type="button" value="Update Data" onclick="updateNotices()">
+    </form>
+</body>
+</html>

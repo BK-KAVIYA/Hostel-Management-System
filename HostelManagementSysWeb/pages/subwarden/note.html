@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-<<h1>Complaint Note</h1>
+<h1>Complaint Note</h1>
 <form id="complaintForm" action="" method="post">
     <input type="hidden" id="complaint_id" name="complaint_id" value="">
     <label for="complaint">Complaint</label>
@@ -72,16 +72,20 @@
         var complaint = $('#complaint').val();
         $.ajax({
             type: "POST",
-            url: "http://192.168.132.60:8080/complainResolve/save", // your API endpoint
+            url: "http://192.168.8.100:8080/complainResolve/save", // your API endpoint
             data: {
                 'complaintId': complaint_id,
                 'note': complaint
             },
             success: function(response) {
                 console.log("SUCCESS : ", response);
+                alert("Complaint saved successfully!"); // Submit the form
+                window.opener.location.href = "./complain.html";
+                window.close();
             },
             error: function(error) {
                 console.log("ERROR : ", error);
+                alert("Complaint not saved successfully!");
             }
         });
     }
