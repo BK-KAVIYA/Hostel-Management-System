@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Student</title>
+    <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles for the editS.html page here */
+        .container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>ADD New Student</h1>
+        <!-- Add input fields for each student attribute -->
+        <form id="studentForm">
+            <div class="form-group">
+                <label for="stid">Student ID</label>
+                <input type="text" class="form-control" id="stid" name="stid" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address_line1">Address Line 1</label>
+                <input type="text" class="form-control" id="address_line1" name="address_line1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address_line2">Address Line 2</label>
+                <input type="text" class="form-control" id="address_line2" name="address_line2">
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nic">NIC</label>
+                <input type="text" class="form-control" id="nic" name="nic" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile_no">Mobile Number</label>
+                <input type="text" class="form-control" id="mobile_no" name="mobile_no" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <input type="text" class="form-control" id="gender" name="gender" required>
+            </div>
+
+            <div class="form-group">
+                <label for="level">Level</label>
+                <input type="text" class="form-control" id="level" name="level" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Get the form element by its ID
+    const studentForm = document.getElementById('studentForm');
+
+    // Add an event listener to the form's submit event
+    studentForm.addEventListener('submit', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Retrieve the values from the form inputs
+        const stid = document.getElementById('stid').value;
+        const name = document.getElementById('name').value;
+        const address_line1 = document.getElementById('address_line1').value;
+        const address_line2 = document.getElementById('address_line2').value;
+        const city = document.getElementById('city').value;
+        const nic = document.getElementById('nic').value;
+        const email = document.getElementById('email').value;
+        const mobile_no = document.getElementById('mobile_no').value;
+        const gender = document.getElementById('gender').value;
+        const level = document.getElementById('level').value;
+        const room_id = 101;
+
+
+        // Create an object containing the updated data
+        const updatedData = {
+            st_id : stid,
+            name : name,
+            address_line1 : address_line1,
+            address_line2 : address_line2,
+            city : city,
+            nic : nic,
+            email : email,
+            mobile_no : mobile_no,
+            gender : gender,
+            level : level,
+            room_id: room_id
+        };
+
+        // Construct the URL for the PUT request
+        const updateDataUrl = `http://192.168.8.104:8080/student/register`;
+
+        // Send a PUT request to update the student data
+        fetch(updateDataUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        }).then(response => {
+            if (response.status === 200) {
+                alert('Student data added successfully');
+                window.location.href = 'studentManagement.html';
+            } else {
+                throw new Error('Failed to add student data');
+            }
+        })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                alert('Failed to add student data: ' + error.message);
+            });
+    });
+</script>
+</body>
+</html>
