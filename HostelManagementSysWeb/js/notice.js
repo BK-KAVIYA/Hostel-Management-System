@@ -8,7 +8,7 @@ function getAllNotices() {
 
     $.ajax({
       method: "GET",
-      url: `http://192.168.8.101:8080/notices/getAll`,
+      url: `http://192.168.8.100:8080/notices/getAll`,
       success: function(data) {
 
         $('#NoticeTable tbody').empty();
@@ -58,7 +58,7 @@ function getAllNotices() {
     
     $.ajax({
       method: "GET",
-      url: "http://192.168.8.101:8080/notices/getById/" + nid,
+      url: "http://192.168.8.100:8080/notices/getById/" + nid,
       async: true,
       success: function (data) {
         var nid = data.nid;
@@ -68,7 +68,7 @@ function getAllNotices() {
         var notice = data.notice;
         var level = data.n_level;
   
-        var url = "../../pages/subwarden/note.html" +
+        var url = "../../pages/subwarden/editNotice.html" +
           "?nid=" + encodeURIComponent(nid) +
           "&dateandtime=" + encodeURIComponent(dateandtime) +
           "&person=" + encodeURIComponent(person) +
@@ -88,7 +88,7 @@ function deleteNotice(nid) {
   if (confirm("Are you sure you want to delete this notice?")) {
     $.ajax({
       method: "DELETE",
-      url: "http://192.168.8.101:8080/notices/delete/" + nid,
+      url: "http://192.168.8.100:8080/notices/delete/" + nid,
       async: true,
       success: function(data) {
         swal({
@@ -166,7 +166,7 @@ function updateNotices() {
     $.ajax({
       method: "PUT",
       contentType: "application/json",
-      url: "http://192.168.8.101:8080/notices/update/" + nid,
+      url: "http://192.168.8.100:8080/notices/update/" + nid,
       async: true,
       data: JSON.stringify({
         ndate_time: ndate_time,

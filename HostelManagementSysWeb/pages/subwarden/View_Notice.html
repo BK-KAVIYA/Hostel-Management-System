@@ -222,7 +222,7 @@
             $.ajax({
             method: "PUT",
             contentType: "application/json",
-            url: `http://192.168.8.101:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            url: `http://192.168.8.100:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
             async: true,
             success: function(data) {
                 alert("done");

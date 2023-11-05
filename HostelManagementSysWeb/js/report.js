@@ -8,7 +8,7 @@ function getDailyReport() {
 
     $.ajax({
       method: "GET",
-      url: `http://192.168.8.101:8080/reports/today`,
+      url: `http://192.168.8.100:8080/reports/today`,
       success: function(data) {
 
         $('#ReportTable tbody').empty();

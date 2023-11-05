@@ -1,10 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Attendance Report</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #ReportTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #ReportTable th, #NoticeTable td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #ReportTable th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        #ReportTable tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        #ReportTable tbody tr:hover {
+            background-color: #ddd;
+        }
+
+        button {
+            background-color: #34db50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2fa143;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+        /* CSS for the table caption */
+        #ReportTable caption {
+            background-color: #3498db;
+            font-size: 24px;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+<!-- <h1>Daily Complaint Report <span id="room_id"></span></h1> -->
 
+<script src="../../js/reportAttendance.js"></script>
+
+<!-- Add a Print Button -->
+
+<table id="ReportTable">
+    <caption>Attendance Report</caption>
+    <thead >
+    <tr>
+        <th>Attendance ID</th>
+        <th>Student ID</th>
+        <th>Room Number</th>
+        <th>Date and Time</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+<button id="printButton">Print Report</button>
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        // Apply print-specific styles
+        let style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = `
+        @page {
+            size: landscape;
+            margin: 10mm;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            text-align: right;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 12px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 12px;
+            margin-top: auto;
+        }
+        .no-print {
+            display: none;
+        }
+    `;
+        document.head.appendChild(style);
+
+        // Add the report header
+        let header = document.createElement('header');
+        header.innerHTML = 'Faculty of Technology, University of Ruhuna, Matara';
+        document.body.insertBefore(header, document.body.firstChild);
+
+        // Add the title
+        let title = document.createElement('h1');
+        title.innerHTML = 'Hostel Management System';
+        document.body.insertBefore(title, document.querySelector('table'));
+
+        // Add the report footer
+        let footer = document.createElement('footer');
+        footer.innerHTML = '@All Rights Reserved';
+        document.body.appendChild(footer);
+
+        // Store the original display property in a variable before hiding the button
+        var originalDisplay = document.getElementById("printButton").style.display;
+
+        // Hide the print button to prevent it from being printed
+        document.getElementById("printButton").style.display = "none";
+
+        // Print the report
+        window.print();
+
+// Show the print button again with its original display property
+        document.getElementById("printButton").style.display = originalDisplay;
+
+        // Remove the added elements from the print view
+        header.classList.add('no-print');
+        title.classList.add('no-print');
+        footer.classList.add('no-print');
+    });
+
+</script>
 </body>
+
 </html>

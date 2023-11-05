@@ -142,7 +142,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Attendance</h5>
                     <p class="card-text">Reports</p>
-                    <a href="Sub_Warden_Attendance_Report.html" class="btn btn-primary" target="_blank">View</a>
+                    <a href="Sub_Warden_Attendance_Report.html" class="btn btn-primary" onclick="openPopup2(); return false;">View</a>
                 </div>
             </div>
         </div>
@@ -181,6 +181,22 @@
     function openPopup1() {
         // Define the URL of the content to be displayed in the popup
         const contentUrl = 'Sub_Warden_asset_Report.html';
+
+        // Open a new popup window
+        const popupWindow = window.open(contentUrl, 'PopupWindow', 'width=900,height=700');
+
+        // Center the popup window on the screen
+        if (popupWindow) {
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const left = (screenWidth - 600) / 2;
+            const top = (screenHeight - 400) / 2;
+            popupWindow.moveTo(left, top);
+        }
+    }
+    function openPopup2() {
+        // Define the URL of the content to be displayed in the popup
+        const contentUrl = 'Sub_Warden_Attendance_Report.html';
 
         // Open a new popup window
         const popupWindow = window.open(contentUrl, 'PopupWindow', 'width=900,height=700');
