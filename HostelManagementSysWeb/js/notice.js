@@ -8,7 +8,7 @@ function getAllNotices() {
 
     $.ajax({
       method: "GET",
-      url: `http://localhost:8080/notices/getAll`,
+      url: `http://192.168.8.101:8080/notices/getAll`,
       success: function(data) {
 
         $('#NoticeTable tbody').empty();
@@ -32,8 +32,10 @@ function getAllNotices() {
             <td>${topic}</td>
             <td>${notice_d}</td>
             <td>${level}</td>
-            <td><button type="button" class="" onclick="updateNotice(${id})">Edite</button><br></td>
-            
+            <td><button type="button" class="" onclick="updateNotice(${id})">Edit</button>
+            <button type="button" class="delete-button" onclick="deleteNotice(${id})">Delete</button>
+            <br>
+            </td>
           </tr>`;
           $('#NoticeTable tbody').append(newRow);
 
@@ -56,7 +58,7 @@ function getAllNotices() {
     
     $.ajax({
       method: "GET",
-      url: "http://localhost:8080/notices/getById/" + nid,
+      url: "http://192.168.8.101:8080/notices/getById/" + nid,
       async: true,
       success: function (data) {
         var nid = data.nid;
@@ -66,7 +68,7 @@ function getAllNotices() {
         var notice = data.notice;
         var level = data.n_level;
   
-        var url = "editeNotice.html" +
+        var url = "../../pages/subwarden/note.html" +
           "?nid=" + encodeURIComponent(nid) +
           "&dateandtime=" + encodeURIComponent(dateandtime) +
           "&person=" + encodeURIComponent(person) +
@@ -82,8 +84,34 @@ function getAllNotices() {
     });
   }
 
+function deleteNotice(nid) {
+  if (confirm("Are you sure you want to delete this notice?")) {
+    $.ajax({
+      method: "DELETE",
+      url: "http://192.168.8.101:8080/notices/delete/" + nid,
+      async: true,
+      success: function(data) {
+        swal({
+          title: "Notice Deleted!",
+          text: "The notice has been successfully deleted.",
+          icon: "success",
+          button: "OK",
+        }).then((value) => {
+          if (value) {
+            getAllNotices(); // Refresh the notices after deletion
+          }
+        });
+      },
+      error: function(xhr, status, error) {
+        alert("Failed to delete notice. Error: " + error);
+      }
+    });
+  }
+}
 
-  function updateNotices() {
+
+
+function updateNotices() {
     let nid = $('#id').val();
     let ndate_time = $('#datetime').val().trim();
     let n_person = $('#person').val().trim();
@@ -138,7 +166,7 @@ function getAllNotices() {
     $.ajax({
       method: "PUT",
       contentType: "application/json",
-      url: "http://localhost:8080/notices/update/" + nid,
+      url: "http://192.168.8.101:8080/notices/update/" + nid,
       async: true,
       data: JSON.stringify({
         ndate_time: ndate_time,
