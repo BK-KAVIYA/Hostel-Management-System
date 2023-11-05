@@ -1,8 +1,6 @@
 package com.fot.HosatalManagment.controller;
 
 import com.fot.HosatalManagment.entity.Asset;
-import com.fot.HosatalManagment.entity.Attendance;
-import com.fot.HosatalManagment.entity.Student;
 import com.fot.HosatalManagment.repository.AssetRepository;
 import com.fot.HosatalManagment.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +39,10 @@ public class AssetController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saveasset);
     }
 
-    @PutMapping("/update/{assetId}")
-    public ResponseEntity<String> updateAsset(@PathVariable String assetId, @RequestBody Asset asset) throws UnsupportedEncodingException {
-        String decodedAssetId = java.net.URLDecoder.decode(assetId, "UTF-8");
-        System.out.println(decodedAssetId);
+    @PutMapping("/update")
+    public ResponseEntity<String> updateAsset(@RequestParam String assetId, @RequestBody Asset asset) throws UnsupportedEncodingException {
 
-        Optional<Asset> optionalAsset = assetRepository.findById(decodedAssetId);
+        Optional<Asset> optionalAsset = assetRepository.findById(assetId);
 
         if (optionalAsset.isPresent()) {
             // Update the Asset data
@@ -63,13 +59,25 @@ public class AssetController {
         }
     }
 
-    @GetMapping("/findasset/{assetNumber}")
-    public ResponseEntity<Asset> getAssetDetails(@PathVariable String assetNumber) throws UnsupportedEncodingException {
+    @GetMapping("/findasset")
+    public ResponseEntity<Asset> getAssetDetails(@RequestParam String assetNumber) throws UnsupportedEncodingException {
         String decodedAssetId = java.net.URLDecoder.decode(assetNumber, "UTF-8");
-        System.out.println(decodedAssetId);
+
 
         Asset asset = assetService.getAssetDetails(decodedAssetId);
         return ResponseEntity.ok(asset);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteAsset(@RequestParam String assetId) {
+        // Check if the student with the given stId exists
+        if (assetRepository.existsById(assetId)) {
+            // Delete the Asset
+            assetRepository.deleteById(assetId);
+            return ResponseEntity.ok("Asset deleted successfully.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
