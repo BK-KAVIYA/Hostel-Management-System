@@ -45,18 +45,30 @@ public class HosatalManagmentApplication {
 	}
 
 
-	@Scheduled(cron = "0 0 0 1/3 * ?")
-	@EventListener(ApplicationReadyEvent.class)
-	public void sendEmailAtMidnight() {
+//	@Scheduled(cron = "0 0 0 1/3 * ?")
+//	public void sendEmailAtMidnight() {
+//
+//		List<Map<String, Object>> data = jdbcTemplate.queryForList("SELECT * FROM OpenComplaintsWithinLast3Days");
+//		EmailFormat emailFormat=new EmailFormat();
+//		senderService.sendHtmlEmail("dilshankavinda371@gmail.com",
+//				"Daily Data Report",
+//				emailFormat.formatDataForEmail(data));
+//
+//		System.out.println("Email sent with Weekly Report.");
+//	}
 
-		List<Map<String, Object>> data = jdbcTemplate.queryForList("SELECT * FROM OpenComplaintsWithinLast3Days");
-		EmailFormat emailFormat=new EmailFormat();
-		senderService.sendHtmlEmail("dilshankavinda371@gmail.com",
-				"Daily Data Report",
-				emailFormat.formatDataForEmail(data));
 
-		System.out.println("Email sent with Weekly Report.");
-	}
+//	@Scheduled(cron = "0 0 0 1/7 * ?")
+//	public void sendEmailAtMidnight() {
+//
+//		List<Map<String, Object>> data = jdbcTemplate.queryForList("SELECT * FROM deanreport");
+//		EmailFormat emailFormat=new EmailFormat();
+//		senderService.sendHtmlEmail("dilshankavinda371@gmail.com",
+//				"Daily Data Report",
+//				emailFormat.formatDataForTheEmail(data));
+//
+//		System.out.println("Email is send!!");
+//	}
 
 
 
