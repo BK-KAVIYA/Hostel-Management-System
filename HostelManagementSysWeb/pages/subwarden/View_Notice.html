@@ -116,15 +116,35 @@
         .navbar-nav .nav-link:hover {
             color: #ff5733; /* Change the text color on hover */
         }
+        .add-button {
+            position: fixed;
+            top: 20px; /* Adjust the top distance from the top edge of the page */
+            right: 20px; /* Adjust the right distance from the right edge of the page */
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .add-button i {
+            margin-right: 5px; /* Adjust the spacing between the icon and text */
+        }
 
+        .add-button:hover {
+            background-color: #45a049; /* Change color on hover (optional) */
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
+</div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
     <div>
-        <a class="navbar-brand " href="./subWdnDashboard.html">Dashboard</a>
+        <a class="navbar-brand " href="../subWdnDashboard.html">Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -135,16 +155,19 @@
                 <a class="nav-link" href="./manageuser.html">Manage Users</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="./manageasset.html">Manage Assets</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="./assignRoomHome.html">Assign Room</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./subwarden/complain.html">Complaints</a>
+                <a class="nav-link" href="./complain.html">Complaints</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./report.html">Report</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./View_Notice.html">Notice</a>
+                <a class="nav-link active" href="./View_Notice.html">Notice</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./profile.html">Profile</a>
@@ -153,6 +176,12 @@
     </div>
 </nav>
 
+<!-- New code for "Add Notice" button -->
+<div id="addNoticeButton">
+    <a href="addNotice.html" class="add-button">
+        <i class="fa fa-plus"></i> Add Notice
+    </a>
+</div>
     <h1>Current Notices <span id="room_id"></span></h1>
 
     <script src="../../js/notice.js"></script>
@@ -193,7 +222,7 @@
             $.ajax({
             method: "PUT",
             contentType: "application/json",
-            url: `http://localhost:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            url: `http://192.168.8.101:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
             async: true,
             success: function(data) {
                 alert("done");
