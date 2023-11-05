@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Notice</title>
+    <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles for the editS.html page here */
+        .container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+        /* Add more styles as needed */
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>ADD New Notice</h1>
+    <!-- Add input fields for each student attribute -->
+    <form id="noticeForm">
+        <div class="form-group">
+            <label for="ndate_time">Date and Time</label>
+            <input type="text" class="form-control" id="ndate_time" name="ndate_time" required>
+        </div>
+        <div class="form-group">
+            <label for="n_person">Noticed Person</label>
+            <input type="text" class="form-control" id="n_person" name="n_person" required>
+        </div>
+
+        <div class="form-group">
+            <label for="n_topic">Notice Topic</label>
+            <input type="text" class="form-control" id="n_topic" name="n_topic" required>
+        </div>
+
+        <div class="form-group">
+            <label for="notice">Notice</label>
+            <input type="text" class="form-control" id="notice" name="notice" required>
+        </div>
+
+        <div class="form-group">
+            <label for="n_level">Noticed Level</label>
+            <input type="number" class="form-control" id="n_level" name="n_level" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Get the form element by its ID
+    // Get the form element by its ID
+    const noticeForm = document.getElementById('noticeForm');
+
+    // Add an event listener to the form's submit event
+    noticeForm.addEventListener('submit', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Retrieve the values from the form inputs
+        const ndate_time = document.getElementById('ndate_time').value;
+        const n_person = document.getElementById('n_person').value;
+        const n_topic = document.getElementById('n_topic').value;
+        const notice = document.getElementById('notice').value;
+        const n_level = document.getElementById('n_level').value;
+
+        // Create an object containing the new asset data
+        const newData = {
+            ndate_time: ndate_time,
+            n_person: n_person,
+            n_topic: n_topic,
+            notice: notice,
+            n_level: n_level
+        };
+
+        // Construct the URL for the POST request
+        const postDataUrl = `http://192.168.8.101:8080/notices/add`;
+
+        // Send a POST request to add the new asset data
+        fetch(postDataUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newData),
+        }).then(response => {
+            if (response.status === 201) {
+                alert('Notice added successfully');
+                window.location.href = 'View_Notice.html';
+            } else {
+                throw new Error('Failed to add a notice');
+            }
+        })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                alert('Failed to add notice data: ' + error.message);
+            });
+    });
+</script>
+</body>
+</html>

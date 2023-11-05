@@ -9,7 +9,7 @@ function getAllStudents() {
     const room_id = urlParams.get('room_id');
     $.ajax({
       method: "GET",
-      url: `http://localhost:8080/student/getByRoom?roomNumber=${room_id}`,
+      url: `http://192.168.8.100:8080/student/getByRoom?roomNumber=${room_id}`,
       success: function(data) {
 
         $('#StudentTable tbody').empty();

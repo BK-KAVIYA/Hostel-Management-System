@@ -70,7 +70,7 @@
     </form>
 </div>
 <div id="successMessage" style="color: green;"></div>
-<div id="errorMessage" style="color: green;"></div>
+<div id="errorMessage" style="color: red;"></div>
 <!-- Include Bootstrap JS and Popper.js (optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -79,8 +79,8 @@
     const studentId = urlParams.get('id');
 
     // URL of your server-side script to fetch the student data
-    const fetchDataUrl = `http://192.168.8.102:8080/student/findstudents/${studentId}`;
-    const updateDataUrl = `http://192.168.8.102:8080/student/update/${studentId}`;
+    const fetchDataUrl = `http://192.168.8.100:8080/student/findstudents/${studentId}`;
+    const updateDataUrl = `http://192.168.8.100:8080/student/update/${studentId}`;
 
     // Elements to display success and error messages
     const successMessageElement = document.getElementById('successMessage');
@@ -149,21 +149,16 @@
                     body: JSON.stringify(updatedData),
                 })
                     .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                        if (response.status === 200) {
+                            alert('Student data edited successfully');
+                            window.location.href = 'studentManagement.html';
+                        } else {
+                            throw new Error('Failed to Edit student data');
                         }
-                        return response.json();
-                    })
-                    .then(result => {
-                        // Handle the response from the server
-                        console.log(result);
-                        // Display a success message
-                        displaySuccessMessage('Data updated successfully!');
                     })
                     .catch(error => {
                         console.error('An error occurred:', error);
-                        // Display an error message
-                        displayErrorMessage('Data updated successfully!');
+                        alert('Failed to edit student data: ' + error.message);
                     });
             });
         })
