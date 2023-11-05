@@ -64,6 +64,22 @@
             background-color: #45a049; /* Change color on hover (optional) */
         }
 
+        .popup {
+            width: 900px;
+            height: 700px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #3498db;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content {
+            padding: 20px;
+        }
+
     </style>
 </head>
 
@@ -79,6 +95,9 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="./manageuser.html">Manage Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./manageasset.html">Manage Assets</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="assignRoomHome.html">Assign Room</a>
@@ -112,7 +131,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Assets</h5>
                     <p class="card-text">Reports</p>
-                    <a href="assetsReport.html" class="btn btn-primary" target="_blank">View</a>
+                    <a href="Sub_Warden_asset_Report.html" class="btn btn-primary" target="_blank" onclick="openPopup1(); return false;">View</a>
                 </div>
             </div>
         </div>
@@ -121,7 +140,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Attendance</h5>
                     <p class="card-text">Reports</p>
-                    <a href="attendanceReport.html" class="btn btn-primary" target="_blank">View</a>
+                    <a href="Sub_Warden_Attendance_Report.html" class="btn btn-primary" target="_blank">View</a>
                 </div>
             </div>
         </div>
@@ -131,12 +150,48 @@
                 <div class="card-body">
                     <h5 class="card-title">Complaint</h5>
                     <p class="card-text">Reports</p>
-                    <a href="complaint.html" class="btn btn-primary" target="_blank">View</a>
+                    <a href="Sub_Warden_Daily_Report.html" class="btn btn-primary" onclick="openPopup(); return false;">View</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+<script>
+    function openPopup() {
+        // Define the URL of the content to be displayed in the popup
+        const contentUrl = 'Sub_Warden_Daily_Report.html';
+
+        // Open a new popup window
+        const popupWindow = window.open(contentUrl, 'PopupWindow', 'width=900,height=700');
+
+        // Center the popup window on the screen
+        if (popupWindow) {
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const left = (screenWidth - 600) / 2;
+            const top = (screenHeight - 400) / 2;
+            popupWindow.moveTo(left, top);
+        }
+    }
+
+
+    function openPopup1() {
+        // Define the URL of the content to be displayed in the popup
+        const contentUrl = 'Sub_Warden_asset_Report.html';
+
+        // Open a new popup window
+        const popupWindow = window.open(contentUrl, 'PopupWindow', 'width=900,height=700');
+
+        // Center the popup window on the screen
+        if (popupWindow) {
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const left = (screenWidth - 600) / 2;
+            const top = (screenHeight - 400) / 2;
+            popupWindow.moveTo(left, top);
+        }
+    }
+</script>
 </html>
 
