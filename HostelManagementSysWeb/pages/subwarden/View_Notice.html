@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Notice</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Include Bootstrap CSS (Bootstrap 5) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #NoticeTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #NoticeTable th, #NoticeTable td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #NoticeTable th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        #NoticeTable tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        #NoticeTable tbody tr:hover {
+            background-color: #ddd;
+        }
+
+        button {
+            background-color: #34db50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2fa143;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .navbar {
+            background-color: #3498db;
+            padding: 15px 0;
+            border-radius: 0;
+        }
+
+        .navbar a.navbar-brand {
+            color: #FF0000; /* Change to your desired text color */
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s; /* Add a smooth transition effect */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #3498db;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff5733; /* Change the text color on hover */
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between p-3">
+    <div>
+        <a class="navbar-brand " href="./subWdnDashboard.html">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="./manageuser.html">Manage Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./assignRoomHome.html">Assign Room</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./subwarden/complain.html">Complaints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.html">Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./View_Notice.html">Notice</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./profile.html">Profile</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <h1>Current Notices <span id="room_id"></span></h1>
+
+    <script src="../../js/notice.js"></script>
+    
+
+    <table id="NoticeTable">
+        <thead >
+            <tr>
+                <th>Id</th>
+                <th>Notice Date and Time</th>
+                <th>Person</th>
+                <th>Topic</th>
+                <th>Notice</th>
+                <th>Notice Level</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        // Access the room_id from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const room_id = urlParams.get('room_id');
+    
+        // Display the room_id on the page
+        document.getElementById('room_id').textContent = room_id;
+    
+        // Set the room ID input field value and make it read-only
+        document.getElementById('roomID').value = room_id;
+    
+        document.getElementById("assignButton").addEventListener("click", function() {
+            // Get the student ID from the text input
+            const studentNumber = document.getElementById("studentNumber").value;
+
+            $.ajax({
+            method: "PUT",
+            contentType: "application/json",
+            url: `http://localhost:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            async: true,
+            success: function(data) {
+                alert("done");
+                // swal({
+                // title: "Good job!",
+                // text: "Booking updated successfully!",
+                // icon: "success",
+                // button: "ok!",
+                // });
+                
+                // window.location.href = "BookingView.html";
+            },
+            error: function(xhr, status, error) {
+                alert("Failed to update booking. Error: " + error);
+            }
+        });
+
+    
+            // Make the API call using fetch or any other method
+            // fetch("http://127.0.0.1:8080/student/updateRoomID", {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         studentID: studentNumber,
+            //         newRoomID: room_id, // Use the previously retrieved room_id
+            //     }),
+            // })
+            // .then((response) => {
+            //     if (response.ok) {
+            //         alert("pass");
+            //         // Handle a successful response, e.g., show a success message
+            //         console.log("Assignment successful");
+            //     } else {
+            //         alert("fail");
+            //         // Handle errors, e.g., show an error message
+            //         console.error("Assignment failed");
+            //     }
+            // })
+            // .catch((error) => {
+            //     // Handle network or other errors
+            //     console.error("Error: " + error);
+            // });
+        });
+    </script>
+    
+</body>
+</html>
