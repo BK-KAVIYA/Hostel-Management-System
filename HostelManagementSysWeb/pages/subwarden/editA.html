@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Assets</title>
+  <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    /* Add your custom styles for the editS.html page here */
+    .container {
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+    }
+
+    /* Add more styles as needed */
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Edit Assets</h1>
+
+  <form id="editForm">
+    <!-- Add input fields for each student attribute -->
+    <div class="form-group">
+      <label for="type">Type</label>
+      <input type="text" class="form-control" id="type" name="type" required>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <input type="text" class="form-control" id="status" name="status" required>
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input type="text" class="form-control" id="category" name="category" required>
+    </div>
+
+    <div class="form-group">
+      <label for="target_id">Target ID</label>
+      <input type="number" class="form-control" id="target_id" name="target_id" required>
+    </div>
+
+    <!-- Add more input fields for other attributes -->
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+<div id="successMessage" style="color: green;"></div>
+<div id="errorMessage" style="color: red;"></div>
+<!-- Include Bootstrap JS and Popper.js (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Get the student ID from the query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const assetId = urlParams.get('id');
+  const encodedAssetId = encodeURIComponent(assetId);
+  alert(encodedAssetId);
+  // URL of your server-side script to fetch the student data
+  const fetchDataUrl = `http://192.168.8.102:8080/assets/findasset?assetNumber=${assetId}`;
+  const updateDataUrl = `http://192.168.8.102:8080/assets/update?assetId=${assetId}`;
+
+  // Elements to display success and error messages
+  const successMessageElement = document.getElementById('successMessage');
+  const errorMessageElement = document.getElementById('errorMessage');
+
+  // Function to handle displaying success message
+  function displaySuccessMessage(message) {
+    successMessageElement.textContent = message;
+    errorMessageElement.textContent = '';
+  }
+
+  // Function to handle displaying error message
+  function displayErrorMessage(message) {
+    errorMessageElement.textContent = message;
+    successMessageElement.textContent = '';
+  }
+
+  // Fetch and populate student data
+  fetch(fetchDataUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Populate the input fields with the student data
+            document.getElementById('type').value = data.type;
+            document.getElementById('status').value = data.status;
+            document.getElementById('category').value = data.category;
+            document.getElementById('target_id').value = data.target_id;
+            // Populate more input fields with other attributes
+
+            // Handle the form submission
+            document.getElementById('editForm').addEventListener('submit', (event) => {
+              event.preventDefault();
+
+              // Get the updated values from the input fields
+              const updatedData = {
+                type: document.getElementById('type').value,
+                status: document.getElementById('status').value,
+                category: document.getElementById('category').value,
+                target_id: document.getElementById('target_id').value
+
+
+                // Get more updated values from other input fields
+              };
+
+              // Send the updated data to the server-side script for saving
+              // Example using fetch:
+              fetch(updateDataUrl, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+              })
+                      .then(response => {
+                        if (response.status === 200) {
+                          alert('Asset data edited successfully');
+                          window.location.href = 'manageasset.html';
+                        } else {
+                          throw new Error('Failed to Edit Asset data');
+                        }
+                      })
+                      .catch(error => {
+                        console.error('An error occurred:', error);
+                        alert('Failed to edit Asset data: ' + error.message);
+                      });
+            });
+          })
+          .catch(error => {
+            console.error('An error occurred:', error);
+            // Display an error message for the initial fetch
+            displayErrorMessage('An error occurred while fetching data.');
+          });
+</script>
+</body>
+</html>
