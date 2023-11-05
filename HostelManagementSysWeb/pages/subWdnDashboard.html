@@ -170,9 +170,9 @@
   // Retrieve the counts from the database and update the widget boxes
   async function fetchCounts() {
     try {
-      const studentsResponse = await fetch('http://192.168.8.102:8080/totals/students');
-      const complaintsResponse = await fetch('http://192.168.8.102:8080/totals/complaints');
-      const assetsResponse = await fetch('http://192.168.8.102:8080/totals/assets');
+      const studentsResponse = await fetch('http://192.168.8.100:8080/totals/students');
+      const complaintsResponse = await fetch('http://192.168.8.100:8080/totals/complaints');
+      const assetsResponse = await fetch('http://192.168.8.100:8080/totals/assets');
 
       if (!studentsResponse.ok || !complaintsResponse.ok || !assetsResponse.ok) {
         throw new Error('Network response was not ok');

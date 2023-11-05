@@ -195,7 +195,7 @@
 </div>
 <script>
     // URL of your server-side script
-    const url = 'http://192.168.8.104:8080/student/viewallstudent';
+    const url = 'http://192.168.8.100:8080/student/viewallstudent';
 
     fetch(url)
         .then(response => response.json())
@@ -268,7 +268,7 @@
         .catch(error => console.error('Error:', error));
 
     function deleteStudent(studentId) {
-        const deleteUrl = `http://192.168.8.104:8080/student/delete/${studentId}`;
+        const deleteUrl = `http://192.168.8.100:8080/student/delete/${studentId}`;
 
         fetch(deleteUrl, {
             method: 'DELETE',

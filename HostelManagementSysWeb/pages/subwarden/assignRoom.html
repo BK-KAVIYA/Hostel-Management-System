@@ -69,7 +69,7 @@
         <div class="form-group">
             <label for="roomID">Room ID:</label>
             <!-- Set the value as room_id and make it read-only -->
-            <input type="text" id="roomID" name="roomID" value="" readonly>
+            <input type="number" id="roomID" name="roomID" value="" readonly>
         </div>
         
         <div class="form-group">
@@ -121,7 +121,7 @@
             $.ajax({
             method: "PUT",
             contentType: "application/json",
-            url: `http://localhost:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            url: `http://192.168.8.100:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
             async: true,
             success: function(data) {
                 alert("done");
