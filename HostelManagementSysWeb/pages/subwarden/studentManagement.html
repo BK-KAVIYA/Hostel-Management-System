@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>All about Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -176,7 +178,7 @@
 <div id="studentData"></div>
 <!-- New code for "Add Student" button -->
 <div id="addStudentButton">
-    <a href="addStudent.html" class="add-button">
+    <a href="./addStudent.html" class="add-button">
         <i class="fa fa-plus"></i> Add Student
     </a>
 </div>
@@ -195,6 +197,7 @@
 </div>
 <script>
     // URL of your server-side script
+
     const url = 'http://192.168.8.100:8080/student/viewallstudent';
 
     fetch(url)
@@ -269,7 +272,6 @@
 
     function deleteStudent(studentId) {
         const deleteUrl = `http://192.168.8.100:8080/student/delete/${studentId}`;
-
         fetch(deleteUrl, {
             method: 'DELETE',
         })

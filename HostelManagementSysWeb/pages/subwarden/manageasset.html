@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All about Assets</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+    }
+
+    #assetData {
+      max-width: 100%;
+      width: 90%;
+      margin: 20px auto;
+      padding: 20px ;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .edit-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .delete-button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Add Student Button Styles */
+    .add-button {
+      position: fixed;
+      top: 20px; /* Adjust the top distance from the top edge of the page */
+      right: 20px; /* Adjust the right distance from the right edge of the page */
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .add-button i {
+      margin-right: 5px; /* Adjust the spacing between the icon and text */
+    }
+
+    .add-button:hover {
+      background-color: #45a049; /* Change color on hover (optional) */
+    }
+    /* Styles for the custom confirmation dialog */
+    .custom-confirm {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .custom-confirm-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fefefe;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 30%;
+      text-align: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    #yesButton, #noButton {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }/* Styles for the custom alert dialog */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .custom-alert-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fefefe;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 30%;
+      text-align: center;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    #okButton {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+<h1>All about Assets</h1>
+<div id="assetData"></div>
+<div class="custom-confirm" id="confirmationDialog">
+  <div class="custom-confirm-content">
+    <p>Are you sure you want to delete this Asset?</p>
+    <button id="yesButton">Yes</button>
+    <button id="noButton">No</button>
+  </div>
+</div>
+<div class="custom-alert" id="alertDialog">
+  <div class="custom-alert-content">
+    <p id="alertMessage"></p>
+    <button id="okButton">OK</button>
+  </div>
+</div>
+
+<!-- New code for "Add Asset" button -->
+<div id="addAssetButton">
+  <a href="addAsset.html" class="add-button">
+    <i class="fa fa-plus"></i> Add Asset
+  </a>
+</div>
+<script>
+  // URL of your server-side script
+  const url = 'http://192.168.8.102:8080/assets/getAllAssets';
+
+  fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            const div = document.getElementById('assetData');
+            const table = document.createElement('table');
+
+            // Create table headers
+            const thead = document.createElement('thead');
+            const headers = Object.keys(data[0]);
+            headers.forEach(header => {
+              const th = document.createElement('th');
+              th.textContent = header;
+              thead.appendChild(th);
+            });
+            thead.appendChild(document.createElement('th')); // Empty cell for the "Edit" button
+            table.appendChild(thead);
+
+            // Create table rows
+            const tbody = document.createElement('tbody');
+            data.forEach(row => {
+              const tr = document.createElement('tr');
+              headers.forEach(header => {
+                const td = document.createElement('td');
+                td.textContent = row[header];
+                tr.appendChild(td);
+              });
+
+              // Create an "Edit" button for each row with the respective ID
+              const editButton = document.createElement('a');
+              editButton.textContent = 'Edit';
+              editButton.className = 'edit-button';
+              editButton.href = `editA.html?id=${row.asset_id}`; // Link to the "editS.html" page with the student ID as a query parameter
+              tr.appendChild(editButton);
+
+              // Create a "Delete" button for each row with the respective ID
+              const deleteButton = document.createElement('button');
+              deleteButton.textContent = 'Delete';
+              deleteButton.className = 'delete-button';
+              deleteButton.addEventListener('click', () => {
+                const confirmationDialog = document.getElementById('confirmationDialog');
+                const yesButton = document.getElementById('yesButton');
+                const noButton = document.getElementById('noButton');
+                const okButton = document.getElementById('okButton');
+
+                // Show the custom confirmation dialog
+                confirmationDialog.style.display = 'block';
+
+                // Add event listeners for "Yes" and "No" buttons
+                yesButton.addEventListener('click', () => {
+                  // Perform the delete operation here
+                  deleteAsset(row.asset_id);
+                  // Hide the confirmation dialog
+                  confirmationDialog.style.display = 'none';
+                });
+
+                noButton.addEventListener('click', () => {
+                  // Hide the confirmation dialog without deleting
+                  confirmationDialog.style.display = 'none';
+                });
+                // Add an event listener to the "OK" button
+                okButton.addEventListener('click', (event) => {
+                  // Prevent the default behavior
+                  event.preventDefault();
+
+                  // Your code to handle the button click
+                  // ...
+                });
+              });
+              tr.appendChild(deleteButton);
+
+
+              tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            div.appendChild(table);
+          })
+          .catch(error => console.error('Error:', error));
+
+  function deleteAsset(assetId) {
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const assetId = urlParams.get('id');
+    const deleteUrl = `http://192.168.8.102:8080/assets/delete?assetId=${assetId}`;
+
+    fetch(deleteUrl, {
+      method: 'DELETE',
+    })
+            .then(response => {
+              if (response.status === 200) {
+                showAlert('Asset data Deleted !');
+                window.location.href = 'manageasset.html';
+              } else {
+                throw new Error('Failed to delete Asset data');
+              }
+            })
+            .catch(error => {
+              console.error('An error occurred:', error);
+              showAlert('Failed to delete Asset data: ' + error.message);
+            });
+  }
+
+  function showAlert(message) {
+    const alertDialog = document.getElementById('alertDialog');
+    const alertMessage = document.getElementById('alertMessage');
+    const okButton = document.getElementById('okButton');
+
+    // Set the alert message
+    alertMessage.textContent = message;
+
+    // Show the custom alert dialog
+    alertDialog.style.display = 'block';
+
+    // Add an event listener to the "OK" button
+    okButton.addEventListener('click', () => {
+      // Hide the alert dialog
+      alertDialog.style.display = 'none';
+    }, { once: true }); // Add { once: true } to remove the event listener after it's executed once
+  }
+
+
+</script>
+</body>
+</html>

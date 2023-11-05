@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Asset</title>
+    <!-- Include Bootstrap CSS (replace with local Bootstrap if needed) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles for the editS.html page here */
+        .container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>ADD New Asset</h1>
+    <!-- Add input fields for each student attribute -->
+    <form id="assetForm">
+        <div class="form-group">
+            <label for="asset_id">ID</label>
+            <input type="text" class="form-control" id="asset_id" name="asset_id" required>
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <input type="text" class="form-control" id="type" name="type" required>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <input type="text" class="form-control" id="status" name="status" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" name="category" required>
+        </div>
+
+        <div class="form-group">
+            <label for="target_id">Target ID</label>
+            <input type="number" class="form-control" id="target_id" name="target_id" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Get the form element by its ID
+    // Get the form element by its ID
+    const assetForm = document.getElementById('assetForm');
+
+    // Add an event listener to the form's submit event
+    assetForm.addEventListener('submit', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Retrieve the values from the form inputs
+        const asset_id = document.getElementById('asset_id').value;
+        const type = document.getElementById('type').value;
+        const status = document.getElementById('status').value;
+        const category = document.getElementById('category').value;
+        const target_id = document.getElementById('target_id').value;
+
+        // Create an object containing the new asset data
+        const newData = {
+            asset_id: asset_id,
+            type: type,
+            status: status,
+            category: category,
+            target_id: target_id
+        };
+
+        // Construct the URL for the POST request
+        const postDataUrl = `http://192.168.8.102:8080/assets/add`;
+
+        // Send a POST request to add the new asset data
+        fetch(postDataUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newData),
+        }).then(response => {
+            if (response.status === 201) {
+                alert('Asset data added successfully');
+                window.location.href = 'manageasset.html';
+            } else {
+                throw new Error('Failed to add asset data');
+            }
+        })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                alert('Failed to add asset data: ' + error.message);
+            });
+    });
+</script>
+</body>
+</html>

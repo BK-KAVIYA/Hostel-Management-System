@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assets Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .customTable {
+            width: 48%; /* Adjust the width as needed */
+            border-collapse: collapse;
+            border-radius: 5px;
+        }
+
+        .customTable caption {
+            background-color: #3498db;
+            font-size: 24px;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .customTable th, .customTable td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .customTable th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .customTable tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        .customTable tbody tr:hover {
+            background-color: #ddd;
+        }
+
+        button {
+            background-color: #34db50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #2fa143;
+        }
+
+        /* CSS for the no-print class */
+        .no-print {
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Hostel Management System</h1>
+
+<div class="table-container">
+    <table id="ReportATable" class="customTable">
+        <caption>Assets Report</caption>
+        <thead>
+        <tr>
+            <th>Asset ID</th>
+            <th>Category</th>
+            <th>Asset Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Data for Report A -->
+        </tbody>
+    </table>
+
+    <table id="ReportBTable" class="customTable">
+        <caption>Asset Summary</caption>
+        <thead>
+        <tr>
+            <th>Room ID</th>
+            <th>Total Number of Assets</th>
+            <th>Total Broken Assets</th>
+            <th>Asset Damage Ratio (%)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Data for Report B -->
+        </tbody>
+    </table>
+</div>
+
+<button id="printButton">Print Report</button>
+
+<script>
+    document.getElementById("printButton").addEventListener("click", function () {
+        // Apply print-specific styles
+        let style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = `
+        @page {
+            size: landscape;
+            margin: 10mm;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            text-align: right;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 12px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 12px;
+            margin-top: auto;
+        }
+        .no-print {
+            display: none;
+        }
+    `;
+        document.head.appendChild(style);
+
+        // Add the report header
+        let header = document.createElement('header');
+        header.innerHTML = 'Faculty of Technology, University of Ruhuna, Matara';
+        document.body.insertBefore(header, document.body.firstChild);
+
+        // Add the title
+        // let title = document.createElement('h1');
+        // title.innerHTML = 'Hostel Management System';
+        // document.body.insertBefore(title, document.querySelector('.table-container'));
+
+        // Add the report footer
+        let footer = document.createElement('footer');
+        footer.innerHTML = '@All Rights Reserved';
+        document.body.appendChild(footer);
+
+        // Store the original display property in a variable before hiding the button
+        var originalDisplay = document.getElementById("printButton").style.display;
+
+        // Hide the print button to prevent it from being printed
+        document.getElementById("printButton").style.display = "none";
+
+        // Print the report
+        window.print();
+
+        // Show the print button again with its original display property
+        document.getElementById("printButton").style.display = originalDisplay;
+
+        // Remove the added elements from the print view
+        header.classList.add('no-print');
+        title.classList.add('no-print');
+        footer.classList.add('no-print');
+    });
+</script>
+</body>
+</html>
