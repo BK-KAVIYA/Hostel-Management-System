@@ -84,30 +84,22 @@ function getAllNotices() {
     });
   }
 
-function deleteNotice(nid) {
-  if (confirm("Are you sure you want to delete this notice?")) {
-    $.ajax({
-      method: "DELETE",
-      url: "http://192.168.8.100:8080/notices/delete/" + nid,
-      async: true,
-      success: function(data) {
-        swal({
-          title: "Notice Deleted!",
-          text: "The notice has been successfully deleted.",
-          icon: "success",
-          button: "OK",
-        }).then((value) => {
-          if (value) {
-            getAllNotices(); // Refresh the notices after deletion
-          }
-        });
-      },
-      error: function(xhr, status, error) {
-        alert("Failed to delete notice. Error: " + error);
-      }
-    });
+  function deleteNotice(nid) {
+    if (confirm("Are you sure you want to delete this notice?")) {
+      $.ajax({
+        method: "DELETE",
+        url: "http://127.0.0.1:8080/notices/delete/" + nid,
+        async: true,
+        success: function (data) {
+          alert("Notice deleted successfully");
+          location.reload(); // Refresh the page after deletion
+        },
+        error: function (xhr, status, error) {
+          alert("Failed to delete notice. Error: " + error);
+        }
+      });
+    }
   }
-}
 
 
 

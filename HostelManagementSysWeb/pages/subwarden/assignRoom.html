@@ -58,18 +58,19 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="assignrm.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <body>
     <h1>Assignment for Room ID: <span id="room_id"></span></h1>
-
-    <script src="assignrm.js"></script>
-    
 
     <form id="assignment-form">
         <div class="form-group">
             <label for="roomID">Room ID:</label>
             <!-- Set the value as room_id and make it read-only -->
-            <input type="number" id="roomID" name="roomID" value="" readonly>
+            <input type="text" id="roomID" name="roomID" value="" readonly>
         </div>
         
         <div class="form-group">
@@ -115,57 +116,84 @@
         document.getElementById('roomID').value = room_id;
     
         document.getElementById("assignButton").addEventListener("click", function() {
+
+            event.preventDefault();
             // Get the student ID from the text input
             const studentNumber = document.getElementById("studentNumber").value;
+
 
             $.ajax({
             method: "PUT",
             contentType: "application/json",
-            url: `http://192.168.8.100:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
+            url: `http://127.0.0.1:8080/student/updateRoomID?studentID=${studentNumber}&newRoomID=${room_id}`,
             async: true,
             success: function(data) {
-                alert("done");
-                // swal({
-                // title: "Good job!",
-                // text: "Booking updated successfully!",
-                // icon: "success",
-                // button: "ok!",
-                // });
-                
-                // window.location.href = "BookingView.html";
+                swal({
+                    title: "Good job!",
+                    text: "Notice updated successfully!",
+                    icon: "success",
+                    button: "ok!",
+                    }).then((value) => {
+                    if (value) {
+                       // window.location.href = `assignRoom.html?room_id=${room_id}`;
+
+                        $.ajax({
+                                method: "GET",
+                                url: `http://127.0.0.1:8080/student/getByRoom?roomNumber=${room_id}`,
+                                success: function(data) {
+
+                                    $('#StudentTable tbody').empty();
+                                    
+                                    for (let student of data) {
+                                    let id = student.st_id;
+                                    let stuName = student.name;
+                                    let Add1 = student.address_line1;
+                                    let Add2 = student.address_line2;
+                                    let stcity = student.city;
+                                    let nicnum = student.nic;
+                                    let stemail = student.email;
+                                    let stgender = student.gender;
+                                    let  stmobile=student.mobile_no;
+                                    let  stlevel=student.level;
+
+
+                                    if(true){
+
+                                        let newRow = `<tr>
+                                        <td>${id}</td>
+                                        <td>${stuName}</td>
+                                        <td>${Add1}</td>
+                                        <td>${Add2}</td>
+                                        <td>${stcity}</td>
+                                        <td>${nicnum}</td>
+                                        <td>${stemail}</td>
+                                        <td>${stgender}</td>
+                                        <td>${stmobile}</td>
+                                        <td>${stlevel}</td>
+                                        
+                                    </tr>`;
+                                    $('#StudentTable tbody').append(newRow);
+
+                                    }
+
+                                
+                                    }
+                                }
+                            ,
+                    error: function(xhr, status, error) {
+                        console.log("Error:", error);
+                    }
+                    });
+                    }
+                    });
+                                       
             },
+
             error: function(xhr, status, error) {
-                alert("Failed to update booking. Error: " + error);
+                alert("Failed to update room. Error: " + error);
             }
         });
 
-    
-            // Make the API call using fetch or any other method
-            // fetch("http://127.0.0.1:8080/student/updateRoomID", {
-            //     method: "PUT",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({
-            //         studentID: studentNumber,
-            //         newRoomID: room_id, // Use the previously retrieved room_id
-            //     }),
-            // })
-            // .then((response) => {
-            //     if (response.ok) {
-            //         alert("pass");
-            //         // Handle a successful response, e.g., show a success message
-            //         console.log("Assignment successful");
-            //     } else {
-            //         alert("fail");
-            //         // Handle errors, e.g., show an error message
-            //         console.error("Assignment failed");
-            //     }
-            // })
-            // .catch((error) => {
-            //     // Handle network or other errors
-            //     console.error("Error: " + error);
-            // });
         });
     </script>
     

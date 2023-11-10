@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to fetch room numbers from the Spring Boot API
     function fetchRoomNumbers() {
 
-        fetch('http://192.168.8.100:8080/rooms/all')
+        fetch('http://127.0.0.1:8080/rooms/all')
 
             .then(response => response.json())
             .then(data => {
@@ -58,7 +58,9 @@ function displayRoomNumbers(roomNumbers) {
                 button.addEventListener('click', () => {
                     if (roomNumber.student_count < 4) {
                         const url = `assignRoom.html?room_id=${roomNumber.room_id}`;
-                        const popupWindow = window.open(url, '_blank', 'width=1000, height=600');
+                       // window.location.href = url;
+                        
+                       const popupWindow = window.open(url, '_blank', 'width=1000, height=600');
 
                         if (popupWindow) {
                             popupWindow.focus();
@@ -81,12 +83,6 @@ function displayRoomNumbers(roomNumbers) {
 }
 
 
-
-
-    
-    
-    
-    
 
     // Call the function to fetch room numbers
     fetchRoomNumbers();

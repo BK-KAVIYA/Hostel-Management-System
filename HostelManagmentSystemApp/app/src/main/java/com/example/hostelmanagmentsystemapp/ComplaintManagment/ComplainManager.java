@@ -47,7 +47,7 @@ public class ComplainManager extends RecyclerView.Adapter<ComplainViewHolder> {
         if(String.valueOf(complaintList.get(position).getStatus()).equals("Open")){
             status="Open";
         }else{
-            status="Under Review";
+            status="Resolve";
         }
         holder.status.setText(status);
 

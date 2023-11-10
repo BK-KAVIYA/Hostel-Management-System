@@ -31,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:text="Add Complaint"
+            android:text="Add"
             android:backgroundTint="@color/zxing_viewfinder_laser" />
     </RelativeLayout>
 

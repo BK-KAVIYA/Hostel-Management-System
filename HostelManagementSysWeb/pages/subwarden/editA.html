@@ -59,10 +59,10 @@
   const urlParams = new URLSearchParams(window.location.search);
   const assetId = urlParams.get('id');
   const encodedAssetId = encodeURIComponent(assetId);
-  alert(encodedAssetId);
+
   // URL of your server-side script to fetch the student data
-  const fetchDataUrl = `http://192.168.8.102:8080/assets/findasset?assetNumber=${assetId}`;
-  const updateDataUrl = `http://192.168.8.102:8080/assets/update?assetId=${assetId}`;
+  const fetchDataUrl = `http://127.0.0.1:8080/assets/findasset?assetNumber=${assetId}`;
+  const updateDataUrl = `http://127.0.0.1:8080/assets/update?assetId=${assetId}`;
 
   // Elements to display success and error messages
   const successMessageElement = document.getElementById('successMessage');

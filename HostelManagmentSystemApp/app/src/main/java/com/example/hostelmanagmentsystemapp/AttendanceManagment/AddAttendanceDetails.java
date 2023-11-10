@@ -114,10 +114,12 @@ public class AddAttendanceDetails extends AppCompatActivity {
                     } else if (st_status.equals("leave")) {
                         studenStatus="Leave";
                     }else{
+
                         studenStatus="warning";
                     }
                     status.setText(studenStatus);
                 } else {
+                    Toast.makeText(getApplicationContext(),"Check carefull!",Toast.LENGTH_LONG).show();
                     System.out.println("It is unsucess!!");
                 }
 
@@ -134,8 +136,11 @@ public class AddAttendanceDetails extends AppCompatActivity {
             public void onResponse(retrofit2.Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
                     int room_id = response.body();
+
                     roomid.setText(String.valueOf(room_id));
                 } else {
+                    button.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getApplicationContext(),"Not Permitted!!",Toast.LENGTH_LONG).show();
                     System.out.println("It is unsucess!!");
                 }
 

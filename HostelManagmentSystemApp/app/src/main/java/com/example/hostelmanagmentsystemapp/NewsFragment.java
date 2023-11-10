@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.hostelmanagmentsystemapp.entity.Asset;
 import com.example.hostelmanagmentsystemapp.entity.Notice;
@@ -39,55 +40,93 @@ public class NewsFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String UserID = sharedPreferences.getString("userID", "TG001");
 
-        Login.getStudentApiService().getStudentLevel(UserID).enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(retrofit2.Call<Integer> call, Response<Integer> responselevel) {
-                if (responselevel.isSuccessful()) {
-                    Studentlevel = responselevel.body().intValue();
+        if(UserID.startsWith("TG")) {
+            Login.getStudentApiService().getStudentLevel(UserID).enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(retrofit2.Call<Integer> call, Response<Integer> responselevel) {
+                    if (responselevel.isSuccessful()) {
+                        Studentlevel = responselevel.body().intValue();
 
-                    Login.getStudentApiService().getNoticesByLevel(Studentlevel).enqueue(new Callback<List<Notice>>() {
-                        @Override
-                        public void onResponse(retrofit2.Call<List<Notice>> call, Response<List<Notice>> response) {
-                            if (response.isSuccessful()) {
+                        Login.getStudentApiService().getNoticesByLevel(Studentlevel).enqueue(new Callback<List<Notice>>() {
+                            @Override
+                            public void onResponse(retrofit2.Call<List<Notice>> call, Response<List<Notice>> response) {
+                                if (response.isSuccessful()) {
 
-                                List<Notice> notices = response.body();
-                                ArrayList<Notice> noticeArrayList = new ArrayList<>();
-                                for (Notice nt: notices) {
-                                    noticeArrayList.add(new Notice(nt.getNdate_time(),nt.getN_person(),nt.getN_topic(),nt.getNotice()));
+                                    List<Notice> notices = response.body();
+                                    ArrayList<Notice> noticeArrayList = new ArrayList<>();
+                                    for (Notice nt : notices) {
+                                        noticeArrayList.add(new Notice(nt.getNdate_time(), nt.getN_person(), nt.getN_topic(), nt.getNotice()));
+                                    }
+                                    // Create the custom ArrayAdapter
+                                    NewsAdapter adapter = new NewsAdapter(getContext(), R.layout.notice_item_layout, noticeArrayList);
+
+                                    ListView listView = getActivity().findViewById(R.id.listViewNews);
+
+                                    // Set the adapter for the ListView
+                                    listView.setAdapter(adapter);
+                                } else {
+                                    System.out.println("It is unsucess!!");
                                 }
-                                // Create the custom ArrayAdapter
-                                NewsAdapter adapter = new NewsAdapter(getContext(), R.layout.notice_item_layout, noticeArrayList);
 
-                                ListView listView = getActivity().findViewById(R.id.listViewNews);
-
-                                // Set the adapter for the ListView
-                                listView.setAdapter(adapter);
-                            } else {
-                                System.out.println("It is unsucess!!");
                             }
 
-                        }
+                            @Override
+                            public void onFailure(Call<List<Notice>> call, Throwable t) {
+                                // Log the error details
+                                System.out.println("Error occurred: " + t.getMessage());
 
-                        @Override
-                        public void onFailure(Call<List<Notice>> call, Throwable t) {
-                            // Log the error details
-                            System.out.println("Error occurred: " + t.getMessage());
-
-                        }
+                            }
 
 
-                    });
-                } else {
-                    System.out.println("It is unsucess!!");
+                        });
+                    } else {
+                        System.out.println("It is unsucess!!");
+                    }
+
                 }
 
-            }
+                @Override
+                public void onFailure(retrofit2.Call<Integer> call, Throwable t) {
+                    System.out.println("Error occur");
+                }
+            });
 
-            @Override
-            public void onFailure(retrofit2.Call<Integer> call, Throwable t) {
-                System.out.println("Error occur");
-            }
-        });
+        } else if (UserID.startsWith("S")) {
+            Login.getStudentApiService().getNoticesByLevel(0).enqueue(new Callback<List<Notice>>() {
+                @Override
+                public void onResponse(retrofit2.Call<List<Notice>> call, Response<List<Notice>> response) {
+                    if (response.isSuccessful()) {
+
+                        List<Notice> notices = response.body();
+                        ArrayList<Notice> noticeArrayList = new ArrayList<>();
+                        for (Notice nt : notices) {
+                            noticeArrayList.add(new Notice(nt.getNdate_time(), nt.getN_person(), nt.getN_topic(), nt.getNotice()));
+                        }
+                        // Create the custom ArrayAdapter
+                        NewsAdapter adapter = new NewsAdapter(getContext(), R.layout.notice_item_layout, noticeArrayList);
+
+                        ListView listView = getActivity().findViewById(R.id.listViewNews);
+
+                        // Set the adapter for the ListView
+                        listView.setAdapter(adapter);
+                    } else {
+                        System.out.println("It is unsucess!!");
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<List<Notice>> call, Throwable t) {
+                    // Log the error details
+                    System.out.println("Error occurred: " + t.getMessage());
+
+                }
+
+
+            });
+        }else{
+            Toast.makeText(getContext(), "permission denied!!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Nullable

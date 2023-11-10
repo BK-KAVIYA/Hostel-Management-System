@@ -56,7 +56,7 @@ public class AddComplain extends AppCompatActivity {
                             } else if (UserID.startsWith("S")) {
                                 Intent intent=new Intent(AddComplain.this, AddAttendanceDetails.class);
                                 intent.putExtra("studentID",result.getText());
-                                Toast.makeText(AddComplain.this, result.getText(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(AddComplain.this, result.getText(), Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
 
